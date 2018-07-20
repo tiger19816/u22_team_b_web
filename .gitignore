@@ -1,4 +1,4 @@
-# Compiled class file
+﻿# Compiled class file
 *.class
 
 # Log file
@@ -23,13 +23,5 @@
 hs_err_pid*
 /build/
 
-# eclipseの除外ファイル。
-# 
-# Written by Yuki Yoshida.
-.settings/
-bin/
-build/
-WebContent/META-INF/
-WebContent/WEB-INF/
+#classpathファイル
 .classpath
-.project
