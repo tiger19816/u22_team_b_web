@@ -20,7 +20,7 @@ public class Female {
 	private String _cardNominee;
 	private String _pointLatitude;
 	private String _pointLongitude;
-	private int _maleId; //※夫の主キー（あとで夫のエンティティクラスと連携）
+	private Male male;
 
 	/**
 	 * コンストラクタ
@@ -35,6 +35,7 @@ public class Female {
 		this._cardNominee = "";
 		this._pointLatitude = "";
 		this._pointLongitude = "";
+		this.male = new Male();
 	}
 
 //セッター++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -136,14 +137,14 @@ public class Female {
 	 * @param maleId 夫ID
 	 */
 	public void setMaleId(int maleId) {
-		this._maleId = maleId;
+		this.male.setId(maleId);
 	}
 	/**
 	 * 夫IDのセッター
 	 * @param maleId 夫ID
 	 */
 	public void setMaleId(String maleId) {
-		this._maleId = Integer.valueOf(maleId);
+		this.male.setId( Integer.valueOf(maleId) );
 	}
 
 //ゲッター++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -223,6 +224,6 @@ public class Female {
 	 * @return 夫ID
 	 */
 	public int getMaleId() {
-		return this._maleId;
+		return this.male.getId();
 	}
 }
