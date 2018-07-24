@@ -12,7 +12,8 @@ public class Reservation {
 	 */
 	private int _id;
 	private Shops shops;
-	private int _menuNo; //※これって外部キーにならないのか？
+//	private int _menuNo;
+	private Menu menu;
 	private Female female;
 	private String _useDateTime;
 
@@ -22,7 +23,8 @@ public class Reservation {
 	public Reservation() {
 		this._id = 0;
 		this.shops = new Shops();
-		this._menuNo = 0;
+//		this._menuNo = 0;
+		this.menu = new Menu();
 		this.female = new Female();
 		this._useDateTime = "";
 	}
@@ -47,42 +49,56 @@ public class Reservation {
 	 * 店IDのセッター
 	 * @param shops 店ID
 	 */
-	public void setShops(int shopsId) {
+	public void setShopsId(int shopsId) {
 		this.shops.setId(shopsId);
 	}
 	/**
 	 * 店IDのセッター
 	 * @param shops 店ID
 	 */
-	public void setShops(String shopsId) {
+	public void setShopsId(String shopsId) {
 		this.shops.setId(shopsId);
 	}
+//	/**
+//	 * 項番のセッター
+//	 * @param menuNo 項番
+//	 */
+//	public void setMenuNo(int menuNo) {
+//		this._menuNo = menuNo;
+//	}
+//	/**
+//	 * 項番のセッター
+//	 * @param menuNo 項番
+//	 */
+//	public void setMenuNo(String menuNo) {
+//		this._menuNo = Integer.valueOf(menuNo);
+//	}
 	/**
 	 * 項番のセッター
-	 * @param menuNo 項番
+	 * @param menuNo
 	 */
 	public void setMenuNo(int menuNo) {
-		this._menuNo = menuNo;
+		this.menu.setNo(menuNo);
 	}
 	/**
 	 * 項番のセッター
-	 * @param menuNo 項番
+	 * @param menuNo
 	 */
 	public void setMenuNo(String menuNo) {
-		this._menuNo = Integer.valueOf(menuNo);
+		this.menu.setNo(menuNo);
 	}
 	/**
 	 * 妻IDのセッター
 	 * @param female
 	 */
-	public void setFemale(int femaleId) {
+	public void setFemaleId(int femaleId) {
 		this.female.setId(femaleId);
 	}
 	/**
 	 * 妻IDのセッター
 	 * @param female
 	 */
-	public void setFemale(String femaleId) {
+	public void setFemaleId(String femaleId) {
 		this.female.setId(femaleId);
 	}
 	/**
@@ -106,21 +122,28 @@ public class Reservation {
 	 * 店IDのゲッター
 	 * @return 店ID
 	 */
-	public int getShops() {
+	public int getShopsId() {
 		return this.shops.getId();
 	}
+//	/**
+//	 * 項番のゲッター
+//	 * @return 項番
+//	 */
+//	public int getMenuNo() {
+//		return this._menuNo;
+//	}
 	/**
 	 * 項番のゲッター
 	 * @return 項番
 	 */
 	public int getMenuNo() {
-		return this._menuNo;
+		return this.menu.getNo();
 	}
 	/**
 	 * 妻IDのゲッター
 	 * @return 妻ID
 	 */
-	public int getFemale() {
+	public int getFemaleId() {
 		return this.female.getId();
 	}
 	/**

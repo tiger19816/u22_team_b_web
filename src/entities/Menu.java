@@ -32,14 +32,14 @@ public class Menu {
 	 * 店IDのセッター
 	 * @param shops 店ID
 	 */
-	public void setShops(int shopsId) {
+	public void setShopsId(int shopsId) {
 		this.shops.setId(shopsId);
 	}
 	/**
 	 * 店IDのセッター
 	 * @param shops 店ID
 	 */
-	public void setShops(String shopsId) {
+	public void setShopsId(String shopsId) {
 		this.shops.setId(shopsId);
 	}
 	/**
@@ -91,7 +91,7 @@ public class Menu {
 	 * 店IDのゲッター
 	 * @return 店ID
 	 */
-	public int getShops() {
+	public int getShopsId() {
 		return this.shops.getId();
 	}
 	/**
