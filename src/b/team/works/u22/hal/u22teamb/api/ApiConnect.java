@@ -1,4 +1,4 @@
-package api;
+package b.team.works.u22.hal.u22teamb.api;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

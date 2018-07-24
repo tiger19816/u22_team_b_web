@@ -1,5 +1,3 @@
-
-
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -9,12 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import api.ApiConnect;
+import b.team.works.u22.hal.u22teamb.api.ApiConnect;
 
 /**
- * Servlet implementation class TestServlet
+ * Servlet implementation class StoreListServlet
  */
-@WebServlet("/TestServlet")
+@WebServlet("/StoreListServlet")
 public class StoreListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
