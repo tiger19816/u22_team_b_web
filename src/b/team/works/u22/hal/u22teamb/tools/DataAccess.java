@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entities.Female;
+import entities.Male;
 
 /**
  * SQL文クラス
@@ -107,35 +108,85 @@ public class DataAccess extends Dao{
 	}
 
 	//妻の情報を抽出（主キー検索）
-		public ArrayList<Female> FemaleSelect(String id) throws Exception, SQLException {
-			String where = "id = " + id;
-			this.SelectWhere("female", where);
-			ArrayList<Female> result = new ArrayList<Female>();
-			try {
-				Female f = null;
-				while(rs.next()) {
-					f = new Female();
-					f.setId( rs.getInt("id") );
-					f.setName( rs.getString("name") );
-					f.setBirthday( rs.getString("birthday") );
-					f.setPassword( rs.getString("password") );
-					f.setCardNumber( rs.getString("card_number") );
-					f.setCardExpirationDate( rs.getString("card_expiration_date") );
-					f.setCardSecurityCode( rs.getString("card_security_code") );
-					f.setCardNominee( rs.getString("card_nominee") );
-					f.setPointLatitude( rs.getString("point_latitude") );
-					f.setPointLongitude( rs.getString("point_longitude") );
-					f.setMaleId( rs.getInt("male_id") );
+	public ArrayList<Female> FemaleSelect(String id) throws Exception, SQLException {
+		String where = "id = " + id;
+		this.SelectWhere("female", where);
+		ArrayList<Female> result = new ArrayList<Female>();
+		try {
+			Female f = null;
+			while(rs.next()) {
+				f = new Female();
+				f.setId( rs.getInt("id") );
+				f.setName( rs.getString("name") );
+				f.setBirthday( rs.getString("birthday") );
+				f.setPassword( rs.getString("password") );
+				f.setCardNumber( rs.getString("card_number") );
+				f.setCardExpirationDate( rs.getString("card_expiration_date") );
+				f.setCardSecurityCode( rs.getString("card_security_code") );
+				f.setCardNominee( rs.getString("card_nominee") );
+				f.setPointLatitude( rs.getString("point_latitude") );
+				f.setPointLongitude( rs.getString("point_longitude") );
+				f.setMaleId( rs.getInt("male_id") );
 
-					result.add(f);
-				}
-				return result;
+				result.add(f);
 			}
-			catch(Exception e) {
-				e.printStackTrace();
-	            throw e;
-			}
+			return result;
 		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+
+	//夫の情報を抽出
+	public ArrayList<Male> MaleSelect() throws Exception, SQLException {
+		this.Select("male");
+		ArrayList<Male> result = new ArrayList<Male>();
+		try {
+			Male m = null;
+			while(rs.next()) {
+				m = new Male();
+				m.setId( rs.getInt("id") );
+				m.setPassword( rs.getString("password") );
+				m.setBirthday( rs.getString("birthday") );
+				m.setHeight( rs.getInt("height") );
+				m.setBodyWeight( rs.getInt("body_weight") );
+				m.setProfession( rs.getString("profession") );
+				result.add(m);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
+
+	//夫の情報を抽出（主キー検索）
+	public ArrayList<Male> MaleSelect(int id) throws Exception, SQLException {
+		String where = "id = " + id;
+		this.SelectWhere("male", where);
+		ArrayList<Male> result = new ArrayList<Male>();
+		try {
+			Male m = null;
+			while(rs.next()) {
+				m = new Male();
+				m.setId( rs.getInt("id") );
+				m.setPassword( rs.getString("password") );
+				m.setBirthday( rs.getString("birthday") );
+				m.setHeight( rs.getInt("height") );
+				m.setBodyWeight( rs.getInt("body_weight") );
+				m.setProfession( rs.getString("profession") );
+				result.add(m);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+	}
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

@@ -11,6 +11,7 @@ public class Male {
 	 * フィールド
 	 */
 	private int _id;
+	private String _password;
 	private String _birthday;
 	private int _height;
 	private int _bodyWeight;
@@ -21,6 +22,7 @@ public class Male {
 	 */
 	public Male() {
 		this._id = 0;
+		this._password = "";
 		this._birthday = "";
 		this._height = 0;
 		this._bodyWeight = 0;
@@ -42,6 +44,13 @@ public class Male {
 	 */
 	public void setId(String id) {
 		this._id = Integer.valueOf(id);
+	}
+	/**
+	 * 夫パスワードのセッター
+	 * @param password 夫パスワード
+	 */
+	public void setPassword(String password) {
+		this._password = password;
 	}
 	/**
 	 * 夫誕生日のセッター
@@ -94,6 +103,13 @@ public class Male {
 	 */
 	public int getId() {
 		return this._id;
+	}
+	/**
+	 * 夫パスワードのゲッター
+	 * @return 夫パスワード
+	 */
+	public String getPassword() {
+		return this._password;
 	}
 	/**
 	 * 夫誕生日のゲッター

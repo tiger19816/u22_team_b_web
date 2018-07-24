@@ -2,7 +2,9 @@
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import b.team.works.u22.hal.u22teamb.tools.DataAccess;
 import entities.Female;
+import entities.Male;
 
 /**
  * Servlet implementation class MypageJsonTestServlet
@@ -39,10 +42,13 @@ public class MypageJsonTestServlet extends HttpServlet {
 		//String id = request.getParameter("id");
 
 		//※※デバック用※※
-		String id = "1";
+		String id = "2";
 
-		//妻エンティティクラスのオブジェクト作成
-		Female f = new Female();
+		//妻情報を格納する配列
+		ArrayList<Female> female = new ArrayList<Female>();
+
+		//夫情報を格納する配列
+		ArrayList<Male> male = new ArrayList<Male>();
 
 		//DBに接続
 		DataAccess da = null;
@@ -50,7 +56,13 @@ public class MypageJsonTestServlet extends HttpServlet {
 			da = new DataAccess();
 
 			//妻情報抽出
-			da.FemaleSelect(id);
+			female = da.FemaleSelect(id);
+
+			//夫ID取得
+			int maleId = female.get(0).getMaleId();
+
+			//夫情報抽出
+			male = da.MaleSelect(maleId);
 
 			da.close();
 		}
@@ -63,8 +75,10 @@ public class MypageJsonTestServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-//		RequestDispatcher rd = request.getRequestDispatcher("");
-//		rd.forward(request, response);
+		request.setAttribute("female", female);
+		request.setAttribute("male", male);
+		RequestDispatcher rd = request.getRequestDispatcher("mypage_json_test.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
