@@ -14,6 +14,8 @@ public class Female {
 	private String _name;
 	private String _birthday;
 	private String _password;
+	private String _address;
+	private String _mail;
 	private String _cardNumber;
 	private String _cardExpirationDate;
 	private String _cardSecurityCode;
@@ -29,6 +31,8 @@ public class Female {
 		this._id = 0;
 		this._birthday = "";
 		this._password = "";
+		this._address = "";
+		this._mail = "";
 		this._cardNumber = "";
 		this._cardExpirationDate = "";
 		this._cardSecurityCode = "";
@@ -74,6 +78,20 @@ public class Female {
 	 */
 	public void setPassword(String password) {
 		this._password = password;
+	}
+	/**
+	 * 妻登録住所のセッター
+	 * @param address 妻登録住所
+	 */
+	public void setAddress(String address) {
+		this._address = address;
+	}
+	/**
+	 * 妻メールアドレスのセッター
+	 * @param mail 妻メールアドレス
+	 */
+	public void setMail(String mail) {
+		this._mail = mail;
 	}
 	/**
 	 * 妻カードナンバーのセッター
@@ -176,6 +194,20 @@ public class Female {
 	 */
 	public String getPassword() {
 		return this._password;
+	}
+	/**
+	 * 妻登録住所のゲッター
+	 * @return address 妻登録住所
+	 */
+	public String getAddress() {
+		return _address;
+	}
+	/**
+	 * 妻メールアドレスのゲッター
+	 * @return mail 妻メールアドレス
+	 */
+	public String getMail() {
+		return _mail;
 	}
 	/**
 	 * 妻カードナンバーのゲッター

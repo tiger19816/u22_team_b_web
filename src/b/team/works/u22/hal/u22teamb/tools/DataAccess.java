@@ -89,6 +89,8 @@ public class DataAccess extends Dao{
 				f.setName( rs.getString("name") );
 				f.setBirthday( rs.getString("birthday") );
 				f.setPassword( rs.getString("password") );
+				f.setAddress( rs.getString("address") );
+				f.setMail( rs.getString("mail") );
 				f.setCardNumber( rs.getString("card_number") );
 				f.setCardExpirationDate( rs.getString("card_expiration_date") );
 				f.setCardSecurityCode( rs.getString("card_security_code") );

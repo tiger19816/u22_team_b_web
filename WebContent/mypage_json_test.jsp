@@ -10,6 +10,8 @@
 	"femaleName":<%=female.get(0).getName() %>,
 	"femaleBirthday":<%=female.get(0).getBirthday() %>,
 	"femalePassword":<%=female.get(0).getPassword() %>,
+	"femaleAddress":<%=female.get(0).getAddress() %>,
+	"femaleMail":<%=female.get(0).getMail() %>,
 	"cardNumber":<%=female.get(0).getCardNumber() %>,
 	"cardExpirationDate":<%=female.get(0).getCardExpirationDate() %>,
 	"cardSecurityCode":<%=female.get(0).getCardSecurityCode() %>,
@@ -19,9 +21,9 @@
 
 	"maleID":<%=male.get(0).getId() %>,
 	"maleName":<%=male.get(0).getName() %>,
-	"mail":<%=male.get(0).getMail() %>,
-	"MalePassword:"<%=male.get(0).getPassword() %>,
-	"MaleBirthday":<%=male.get(0).getBirthday() %>,
+	"maleMail":<%=male.get(0).getMail() %>,
+	"malePassword:"<%=male.get(0).getPassword() %>,
+	"maleBirthday":<%=male.get(0).getBirthday() %>,
 	"height":<%=male.get(0).getHeight() %>,
 	"weight":<%=male.get(0).getWeight() %>,
 	"profession":<%=male.get(0).getProfession() %>
