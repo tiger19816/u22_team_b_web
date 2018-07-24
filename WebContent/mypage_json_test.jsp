@@ -7,7 +7,7 @@
 %>
 {
 
-	"name":<%=female.get(0).getName() %>,
+	"femaleName":<%=female.get(0).getName() %>,
 	"femaleBirthday":<%=female.get(0).getBirthday() %>,
 	"femalePassword":<%=female.get(0).getPassword() %>,
 	"cardNumber":<%=female.get(0).getCardNumber() %>,
@@ -18,9 +18,11 @@
 	"pointLongitude":<%=female.get(0).getPointLongitude() %>,
 
 	"maleID":<%=male.get(0).getId() %>,
+	"maleName":<%=male.get(0).getName() %>,
+	"mail":<%=male.get(0).getMail() %>,
 	"MalePassword:"<%=male.get(0).getPassword() %>,
 	"MaleBirthday":<%=male.get(0).getBirthday() %>,
 	"height":<%=male.get(0).getHeight() %>,
-	"bodyWeight":<%=male.get(0).getBodyWeight() %>,
+	"weight":<%=male.get(0).getWeight() %>,
 	"profession":<%=male.get(0).getProfession() %>
 }

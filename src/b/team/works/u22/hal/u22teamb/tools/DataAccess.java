@@ -148,10 +148,12 @@ public class DataAccess extends Dao{
 			while(rs.next()) {
 				m = new Male();
 				m.setId( rs.getInt("id") );
+				m.setName( rs.getString("name") );
+				m.setMail( rs.getString("mail") );
 				m.setPassword( rs.getString("password") );
 				m.setBirthday( rs.getString("birthday") );
 				m.setHeight( rs.getInt("height") );
-				m.setBodyWeight( rs.getInt("body_weight") );
+				m.setWeight( rs.getInt("weight") );
 				m.setProfession( rs.getString("profession") );
 				result.add(m);
 			}
@@ -173,10 +175,12 @@ public class DataAccess extends Dao{
 			while(rs.next()) {
 				m = new Male();
 				m.setId( rs.getInt("id") );
+				m.setName( rs.getString("name") );
+				m.setMail( rs.getString("mail") );
 				m.setPassword( rs.getString("password") );
 				m.setBirthday( rs.getString("birthday") );
 				m.setHeight( rs.getInt("height") );
-				m.setBodyWeight( rs.getInt("body_weight") );
+				m.setWeight( rs.getInt("weight") );
 				m.setProfession( rs.getString("profession") );
 				result.add(m);
 			}
@@ -187,7 +191,6 @@ public class DataAccess extends Dao{
             throw e;
 		}
 	}
-
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }
