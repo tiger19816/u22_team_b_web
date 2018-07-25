@@ -89,6 +89,7 @@ public class DataAccess extends Dao{
 				f.setName( rs.getString("name") );
 				f.setBirthday( rs.getString("birthday") );
 				f.setPassword( rs.getString("password") );
+				f.setIcon( rs.getString("icon_url") );
 				f.setAddress( rs.getString("address") );
 				f.setMail( rs.getString("mail") );
 				f.setCardNumber( rs.getString("card_number") );
@@ -122,6 +123,7 @@ public class DataAccess extends Dao{
 				f.setName( rs.getString("name") );
 				f.setBirthday( rs.getString("birthday") );
 				f.setPassword( rs.getString("password") );
+				f.setIcon( rs.getString("icon_url") );
 				f.setAddress( rs.getString("address") );
 				f.setMail( rs.getString("mail") );
 				f.setCardNumber( rs.getString("card_number") );

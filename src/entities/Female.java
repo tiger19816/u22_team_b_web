@@ -14,6 +14,7 @@ public class Female {
 	private String _name;
 	private String _birthday;
 	private String _password;
+	private String _icon;
 	private String _address;
 	private String _mail;
 	private String _cardNumber;
@@ -31,6 +32,7 @@ public class Female {
 		this._id = 0;
 		this._birthday = "";
 		this._password = "";
+		this._icon = "";
 		this._address = "";
 		this._mail = "";
 		this._cardNumber = "";
@@ -78,6 +80,13 @@ public class Female {
 	 */
 	public void setPassword(String password) {
 		this._password = password;
+	}
+	/**
+	 * 妻アイコン画像名のセッター
+	 * @param icon 妻アイコン画像名
+	 */
+	public void setIcon(String icon) {
+		this._icon = icon;
 	}
 	/**
 	 * 妻登録住所のセッター
@@ -186,14 +195,21 @@ public class Female {
 	 * @return 妻誕生日
 	 */
 	public String getBirthday() {
-		return this._birthday;
+		return _birthday;
 	}
 	/**
 	 * 妻パスワードのゲッター
 	 * @return 妻パスワード
 	 */
 	public String getPassword() {
-		return this._password;
+		return _password;
+	}
+	/**
+	 * 妻アイコン画像名のゲッター
+	 * @return icon 妻アイコン画像名
+	 */
+	public String getIcon() {
+		return _icon;
 	}
 	/**
 	 * 妻登録住所のゲッター
