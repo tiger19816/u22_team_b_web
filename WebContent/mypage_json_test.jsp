@@ -6,8 +6,8 @@
 	ArrayList<Male> male = (ArrayList<Male>)request.getAttribute("male");
 %>
 {
-	"femaleName":<%=female.get(0).getName() %>,
-	<%-- "femaleBirthday":<%=female.get(0).getBirthday() %>,
+	"femaleName":<%=female.get(0).getName() %><%-- , --%>
+	<%-- "femaleBirthday":<%=female.get(0).getBirthday(),
 	"femalePassword":<%=female.get(0).getPassword() %>,
 	"femaleIcon":<%=female.get(0).getIcon() %>,
 	"femaleAddress":<%=female.get(0).getAddress() %>,
