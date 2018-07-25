@@ -39,11 +39,9 @@ public class MypageJsonTestServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 
 		//妻ID取得
-		String id = request.getParameter("id");
+		String id = "1";
+		id = request.getParameter("id");
 		System.out.println(id);
-
-		//※※デバック用※※
-		id = "1";
 
 		//妻情報を格納する配列
 		ArrayList<Female> female = new ArrayList<Female>();
