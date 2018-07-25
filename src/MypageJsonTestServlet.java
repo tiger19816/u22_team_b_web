@@ -40,6 +40,7 @@ public class MypageJsonTestServlet extends HttpServlet {
 
 		//妻ID取得
 		String id = request.getParameter("id");
+		System.out.println(id);
 
 		//※※デバック用※※
 		id = "1";
