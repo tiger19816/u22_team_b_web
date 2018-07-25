@@ -6,8 +6,8 @@
 	ArrayList<Male> male = (ArrayList<Male>)request.getAttribute("male");
 %>
 {
-	"femaleName":<%=female.get(0).getName() %><%-- , --%>
-	<%-- "femaleBirthday":<%=female.get(0).getBirthday(),
+	"femaleName":<%=female.get(0).getName() %>,
+	"femaleBirthday":<%=female.get(0).getBirthday() %>,
 	"femalePassword":<%=female.get(0).getPassword() %>,
 	"femaleIcon":<%=female.get(0).getIcon() %>,
 	"femaleAddress":<%=female.get(0).getAddress() %>,
@@ -22,9 +22,9 @@
 	"maleID":<%=male.get(0).getId() %>,
 	"maleName":<%=male.get(0).getName() %>,
 	"maleMail":<%=male.get(0).getMail() %>,
-	"malePassword:"<%=male.get(0).getPassword() %>,
+	"malePassword":<%=male.get(0).getPassword() %>,
 	"maleBirthday":<%=male.get(0).getBirthday() %>,
 	"height":<%=male.get(0).getHeight() %>,
 	"weight":<%=male.get(0).getWeight() %>,
-	"profession":<%=male.get(0).getProfession() %> --%>
+	"profession":<%=male.get(0).getProfession() %>
 }
