@@ -197,6 +197,26 @@ public class DataAccess extends Dao{
             throw e;
 		}
 	}
+
+	//夫の情報を抽出（主キー検索）
+		public ArrayList<ArrayList<String>> ReservationListSelect(int id) throws Exception, SQLException {
+			String where = "r.female_id = " + id + " AND r.id = rs.reservation_id ";
+			this.SelectWhere("reservation r INNER JOIN reservationshops rs", where);
+			ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+			try {
+				while(rs.next()) {
+					ArrayList<String> datas = new ArrayList<String>();
+					datas.add(rs.getString("shops_name"));
+					datas.add(rs.getString("use_date_time"));
+					result.add(datas);
+				}
+				return result;
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+	            throw e;
+			}
+		}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }

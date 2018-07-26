@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import b.team.works.u22.hal.u22teamb.tools.DataAccess;
 
 /**
  * Servlet implementation class ReservationListJsonServlet
@@ -40,12 +43,26 @@ public class ReservationListJsonServlet extends HttpServlet {
 		ArrayList<ArrayList<String>> reservationList = new ArrayList<ArrayList<String>>();
 
 		//DBに接続
+		DataAccess da = null;
+		try {
+			da = new DataAccess();
 
-		for(int i=0; i<10; i++) {
-			ArrayList<String> list = new ArrayList<String>();
-			list.add("店舗名");
-			list.add("XX月XX日(X) XX時XX分");
-			reservationList.add(list);
+			reservationList = da.ReservationListSelect(Integer.parseInt(femaleId));
+
+//			for(int i=0; i<10; i++) {
+//				ArrayList<String> list = new ArrayList<String>();
+//				list.add("店舗名");
+//				list.add("XX月XX日(X) XX時XX分");
+//				reservationList.add(list);
+//			}
+
+			da.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		request.setAttribute("LIST", reservationList);
