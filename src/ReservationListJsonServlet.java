@@ -46,16 +46,7 @@ public class ReservationListJsonServlet extends HttpServlet {
 		DataAccess da = null;
 		try {
 			da = new DataAccess();
-
 			reservationList = da.ReservationListSelect(Integer.parseInt(femaleId));
-
-//			for(int i=0; i<10; i++) {
-//				ArrayList<String> list = new ArrayList<String>();
-//				list.add("店舗名");
-//				list.add("XX月XX日(X) XX時XX分");
-//				reservationList.add(list);
-//			}
-
 			da.close();
 		}
 		catch (SQLException e) {
