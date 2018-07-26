@@ -1,10 +1,7 @@
 
 
 import java.io.IOException;
-<<<<<<< HEAD
 import java.sql.SQLException;
-=======
->>>>>>> master
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -14,11 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-<<<<<<< HEAD
 import b.team.works.u22.hal.u22teamb.tools.DataAccess;
 
-=======
->>>>>>> master
 /**
  * Servlet implementation class ReservationListJsonServlet
  */
@@ -45,16 +39,10 @@ public class ReservationListJsonServlet extends HttpServlet {
 		//妻ID取得
 		String femaleId = request.getParameter("id");
 
-<<<<<<< HEAD
-		femaleId = "1";
-
-=======
->>>>>>> master
 		//行毎のデータ
 		ArrayList<ArrayList<String>> reservationList = new ArrayList<ArrayList<String>>();
 
 		//DBに接続
-<<<<<<< HEAD
 		DataAccess da = null;
 		try {
 			da = new DataAccess();
@@ -66,14 +54,6 @@ public class ReservationListJsonServlet extends HttpServlet {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-=======
-
-		for(int i=0; i<10; i++) {
-			ArrayList<String> list = new ArrayList<String>();
-			list.add("店舗名");
-			list.add("XX月XX日(X) XX時XX分");
-			reservationList.add(list);
->>>>>>> master
 		}
 
 		request.setAttribute("LIST", reservationList);
