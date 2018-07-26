@@ -33,10 +33,10 @@ public class StoreDetailsServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 //		//店舗id
-//		String id = request.getParameter("id");
+		String id = request.getParameter("id");
 		// エンドポイント
 		String prmKeyid = "&keyid=" + ApiConnect.ACCKEY;
-		String prmId ="&id=" + "gdtp000";
+		String prmId ="&id=" + id;
 
 		System.out.println(prmKeyid);
 		// URI組み立て
