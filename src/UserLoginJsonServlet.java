@@ -43,6 +43,9 @@ public class UserLoginJsonServlet extends HttpServlet {
 				userMail = "kazuki@ezweb.ne.jp";
 				userPassword = "12345";
 
+				userMail = "yumiko@ezweb.ne.jp";
+				userPassword = "12345";
+
 				//行毎のデータ
 				ArrayList<String> userDatas = new ArrayList<String>();
 
