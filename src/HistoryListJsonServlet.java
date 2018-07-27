@@ -33,7 +33,8 @@ public class HistoryListJsonServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//文字化け対策
+
+    //文字化け対策
 		request.setCharacterEncoding("utf-8");
 
 		//妻ID取得
