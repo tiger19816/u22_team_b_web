@@ -238,6 +238,26 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
+
+	//ログインチェック情報を抽出（view検索）
+	public ArrayList<String> UserLoginSelect(String mail , String password) throws Exception, SQLException {
+		String where = "mail = '" + mail + "' AND password = '" + password + "'" ;
+		this.SelectWhere(" userlist ", where);
+		ArrayList<String> result = new ArrayList<String>();
+		try {
+			while(rs.next()) {
+				result.add(rs.getString("id"));
+				result.add(rs.getString("sex"));
+				result.add(rs.getString("mail"));
+				result.add(rs.getString("password"));
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }

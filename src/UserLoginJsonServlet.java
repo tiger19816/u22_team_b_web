@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import b.team.works.u22.hal.u22teamb.tools.DataAccess;
 
 /**
- * Servlet implementation class HistoryListJsonServlet
+ * Servlet implementation class UserLoginJsonServlet
  */
-@WebServlet("/HistoryListJsonServlet")
-public class HistoryListJsonServlet extends HttpServlet {
+@WebServlet("/UserLoginJsonServlet")
+public class UserLoginJsonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HistoryListJsonServlet() {
+    public UserLoginJsonServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,32 +33,36 @@ public class HistoryListJsonServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//文字化け対策
-		request.setCharacterEncoding("utf-8");
+				//文字化け対策
+				request.setCharacterEncoding("utf-8");
 
-		//妻ID取得
-		String femaleId = request.getParameter("id");
+				//妻ID取得
+				String userMail = request.getParameter("mail");
+				String userPassword = request.getParameter("password");
 
-		//行毎のデータ
-		ArrayList<ArrayList<String>> historyList = new ArrayList<ArrayList<String>>();
+				userMail = "kazuki@ezweb.ne.jp";
+				userPassword = "12345";
 
-		//DBに接続
-		DataAccess da = null;
-		try {
-			da = new DataAccess();
-			historyList = da.HistoryListSelect(Integer.parseInt(femaleId));
-			da.close();
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+				//行毎のデータ
+				ArrayList<String> userDatas = new ArrayList<String>();
 
-		request.setAttribute("LIST", historyList);
-		RequestDispatcher rd = request.getRequestDispatcher("history_list_json.jsp");
-		rd.forward(request, response);
+				//DBに接続
+				DataAccess da = null;
+				try {
+					da = new DataAccess();
+					userDatas = da.UserLoginSelect(userMail, userPassword);
+					da.close();
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				request.setAttribute("USERDATAS", userDatas);
+				RequestDispatcher rd = request.getRequestDispatcher("user_login_json.jsp");
+				rd.forward(request, response);
 	}
 
 	/**
