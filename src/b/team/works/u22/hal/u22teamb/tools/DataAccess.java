@@ -197,6 +197,47 @@ public class DataAccess extends Dao{
             throw e;
 		}
 	}
+
+	//予約リストの行毎に表示する情報を抽出（妻主キー検索）
+	public ArrayList<ArrayList<String>> ReservationListSelect(int id) throws Exception, SQLException {
+		String where = "r.female_id = " + id + " AND delete_flag = 0 " ;
+		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.id = rs.id ", where);
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		try {
+			while(rs.next()) {
+				ArrayList<String> datas = new ArrayList<String>();
+				datas.add(rs.getString("shop_name"));
+				datas.add(rs.getString("use_date_time"));
+				result.add(datas);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	//履歴リストの行毎に表示する情報を抽出（妻主キー検索）
+	public ArrayList<ArrayList<String>> HistoryListSelect(int id) throws Exception, SQLException {
+		String where = "r.female_id = " + id + " AND visit_flag = 0 AND delete_flag = 0  " ;
+		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.id = rs.id ", where);
+		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+		try {
+			while(rs.next()) {
+				ArrayList<String> datas = new ArrayList<String>();
+				datas.add(rs.getString("shop_name"));
+				datas.add("1000");
+				datas.add(rs.getString("use_date_time"));
+				result.add(datas);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }
