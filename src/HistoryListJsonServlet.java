@@ -39,8 +39,6 @@ public class HistoryListJsonServlet extends HttpServlet {
 				//妻ID取得
 				String femaleId = request.getParameter("id");
 
-				femaleId = "1";
-
 				//行毎のデータ
 				ArrayList<ArrayList<String>> historyList = new ArrayList<ArrayList<String>>();
 
