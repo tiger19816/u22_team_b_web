@@ -34,19 +34,15 @@ public class AccessDao extends Dao{
 		}
 	}
 
-	public void close() throws SQLException {
+	public void shopInsert(String shopsId, String shopName) {
+		String sql = "INSERT INTO reservationshops(id, shop_name) VALUES (?, ?);";
 		try {
-			if(this.rs != null) {
-				this.rs.close();
-			}
-			if(this.pst != null) {
-				this.pst.close();
-			}
-			if(this.cn != null) {
-				this.cn.close();
-			}
-		} catch(SQLException e) {
-			throw e;
+			this.pst = cn.prepareStatement(sql);
+			pst.setString(1, shopsId);
+			pst.setString(2, shopName);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO: handle exception
 		}
 	}
 }
