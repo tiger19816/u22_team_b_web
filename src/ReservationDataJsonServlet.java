@@ -36,8 +36,8 @@ public class ReservationDataJsonServlet extends HttpServlet {
 				//文字化け対策
 				request.setCharacterEncoding("utf-8");
 
-				//妻ID取得
-				String femaleId = request.getParameter("id");
+				//予約ID取得
+				String reservationId = request.getParameter("id");
 
 				//行毎のデータ
 				ArrayList<String> reservationData = new ArrayList<String>();
