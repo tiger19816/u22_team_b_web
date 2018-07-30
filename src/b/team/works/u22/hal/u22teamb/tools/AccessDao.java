@@ -45,5 +45,17 @@ public class AccessDao extends Dao{
 			// TODO: handle exception
 		}
 	}
+
+	public boolean reservationUpdate(String reservationid) {
+		String sql = "UPDATE";
+		try {
+			this.pst = cn.prepareStatement(sql);
+			pst.setString(1, reservationid);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		return true;
+	}
 }
 

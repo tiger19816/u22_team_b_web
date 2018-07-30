@@ -36,28 +36,42 @@ public class ReservationDataJsonServlet extends HttpServlet {
 				//文字化け対策
 				request.setCharacterEncoding("utf-8");
 
+				String nextJsp = "";
+
 				//予約ID取得
+				Boolean theUpdateTime = Boolean.valueOf(request.getParameter("version"));
 				String reservationId = request.getParameter("id");
 
-				//行毎のデータ
-				ArrayList<String> reservationData = new ArrayList<String>();
+				if(theUpdateTime) {
+					//updateする時。
+					nextJsp = "reservation_update_json.jsp";
+					String menuNo = request.getParameter("menuNo");
+					String date = request.getParameter("date");
+					String time = request.getParameter("time");
 
-				//DBに接続
-				DataAccess da = null;
-				try {
-					da = new DataAccess();
-					reservationData = da.ReservationDataSelect(1);
-					da.close();
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
+				}else {
+					//初めのページ表記の時。
+					nextJsp = "reservation_data_json.jsp";
 
-				request.setAttribute("DATA", reservationData);
-				RequestDispatcher rd = request.getRequestDispatcher("reservation_data_json.jsp");
+					//行毎のデータ
+					ArrayList<String> reservationData = new ArrayList<String>();
+
+					//DBに接続
+					DataAccess da = null;
+					try {
+						da = new DataAccess();
+						reservationData = da.ReservationDataSelect(1);
+						da.close();
+					}
+					catch (SQLException e) {
+						e.printStackTrace();
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
+					request.setAttribute("DATA", reservationData);
+				}
+				RequestDispatcher rd = request.getRequestDispatcher(nextJsp);
 				rd.forward(request, response);
 	}
 
