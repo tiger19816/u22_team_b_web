@@ -1,5 +1,6 @@
 package b.team.works.u22.hal.u22teamb.tools;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AccessDao extends Dao{
 
@@ -46,14 +47,34 @@ public class AccessDao extends Dao{
 		}
 	}
 
-	public boolean reservationUpdate(String reservationid) {
-		String sql = "UPDATE";
+	public boolean reservationUpdate(String reservationid , String menuNo , String date , String time) {
+		String sql = "UPDATE reservation SET";
+		int count = 0;
+		ArrayList<String> result = new ArrayList<String>();
+		if(!"".equals(menuNo)) {
+			sql += " menu_no = ? ";
+			result.add(menuNo);
+			count++;
+		}
+		if(!"".equals(date) && !"".equals(time)) {
+			if(count == 1) {
+				sql += ",";
+			}
+			sql += " use_date_time = ? ";
+			result.add(date+" "+time);
+		}
+		sql +=  " WHERE id = ? ";
+		System.out.println(sql);
+		result.add(reservationid);
 		try {
 			this.pst = cn.prepareStatement(sql);
-			pst.setString(1, reservationid);
+			for(int i=0; i<result.size(); i++) {
+				pst.setString((i+1), result.get(i));
+			}
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO: handle exception
+			return false;
 		}
 		return true;
 	}

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import b.team.works.u22.hal.u22teamb.tools.AccessDao;
 import b.team.works.u22.hal.u22teamb.tools.DataAccess;
 
 /**
@@ -42,12 +43,39 @@ public class ReservationDataJsonServlet extends HttpServlet {
 				Boolean theUpdateTime = Boolean.valueOf(request.getParameter("version"));
 				String reservationId = request.getParameter("id");
 
+				theUpdateTime = true;
+
 				if(theUpdateTime) {
 					//updateする時。
 					nextJsp = "reservation_update_json.jsp";
 					String menuNo = request.getParameter("menuNo");
 					String date = request.getParameter("date");
 					String time = request.getParameter("time");
+
+					//サンプルデータ
+					reservationId = "1";
+					menuNo = "";
+					date = "";
+					time = "";
+
+					if(!"".equals(menuNo) || (!"".equals(date)  && !"".equals(time))) {
+						//DBに接続
+						AccessDao ad = null;
+						try {
+							ad = new AccessDao();
+							Boolean result = ad.reservationUpdate(reservationId, menuNo, date, time);
+							request.setAttribute("RESULT", result);
+							ad.close();
+						}
+						catch (SQLException e) {
+							e.printStackTrace();
+						}
+						catch (Exception e) {
+							e.printStackTrace();
+						}
+					}else {
+						request.setAttribute("RESULT", true);
+					}
 
 				}else {
 					//初めのページ表記の時。
@@ -71,6 +99,7 @@ public class ReservationDataJsonServlet extends HttpServlet {
 					}
 					request.setAttribute("DATA", reservationData);
 				}
+
 				RequestDispatcher rd = request.getRequestDispatcher(nextJsp);
 				rd.forward(request, response);
 	}
