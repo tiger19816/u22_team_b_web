@@ -43,7 +43,7 @@ public class ReservationDataJsonServlet extends HttpServlet {
 				Boolean theUpdateTime = Boolean.valueOf(request.getParameter("version"));
 				String reservationId = request.getParameter("id");
 
-				theUpdateTime = true;
+//				theUpdateTime = true;
 
 				if(theUpdateTime) {
 					//updateする時。
@@ -53,10 +53,10 @@ public class ReservationDataJsonServlet extends HttpServlet {
 					String time = request.getParameter("time");
 
 					//サンプルデータ
-					reservationId = "1";
-					menuNo = "";
-					date = "";
-					time = "";
+//					reservationId = "1";
+//					menuNo = "";
+//					date = "";
+//					time = "";
 
 					if(!"".equals(menuNo) || (!"".equals(date)  && !"".equals(time))) {
 						//DBに接続

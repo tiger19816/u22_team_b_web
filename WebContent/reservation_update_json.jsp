@@ -5,5 +5,5 @@
 	Boolean reservationData = (Boolean)request.getAttribute("RESULT");
 %>
 {
-	"result":"<%=reservationData %>",
+	"result":"<%=reservationData %>"
 }
