@@ -43,20 +43,12 @@ public class ReservationDataJsonServlet extends HttpServlet {
 				Boolean theUpdateTime = Boolean.valueOf(request.getParameter("version"));
 				String reservationId = request.getParameter("id");
 
-//				theUpdateTime = true;
-
 				if(theUpdateTime) {
 					//updateする時。
 					nextJsp = "reservation_update_json.jsp";
 					String menuNo = request.getParameter("menuNo");
 					String date = request.getParameter("date");
 					String time = request.getParameter("time");
-
-					//サンプルデータ
-//					reservationId = "1";
-//					menuNo = "";
-//					date = "";
-//					time = "";
 
 					if(!"".equals(menuNo) || (!"".equals(date)  && !"".equals(time))) {
 						//DBに接続
@@ -78,6 +70,7 @@ public class ReservationDataJsonServlet extends HttpServlet {
 					}
 
 				}else {
+
 					//初めのページ表記の時。
 					nextJsp = "reservation_data_json.jsp";
 
@@ -88,7 +81,7 @@ public class ReservationDataJsonServlet extends HttpServlet {
 					DataAccess da = null;
 					try {
 						da = new DataAccess();
-						reservationData = da.ReservationDataSelect(1);
+						reservationData = da.ReservationDataSelect(Integer.parseInt(reservationId));
 						da.close();
 					}
 					catch (SQLException e) {

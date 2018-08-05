@@ -10,7 +10,8 @@ ArrayList<ArrayList<String>> historyList = (ArrayList<ArrayList<String>>)request
 		{
 			"storeName":"<%= historyList.get(i).get(0) %>",
 			"historyPrice":"<%= historyList.get(i).get(1) %>",
-			"historyDate":"<%= historyList.get(i).get(2) %>"
+			"historyDate":"<%= historyList.get(i).get(2) %>",
+			"storeId":"<%= historyList.get(i).get(3) %>"
 		}<% if(i != (historyList.size()-1)){ %>,<% } %>
 		<% } %>
 	]

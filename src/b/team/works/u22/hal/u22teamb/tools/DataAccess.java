@@ -208,6 +208,8 @@ public class DataAccess extends Dao{
 				ArrayList<String> datas = new ArrayList<String>();
 				datas.add(rs.getString("shop_name"));
 				datas.add(rs.getString("use_date_time"));
+				datas.add(rs.getString("shops_id"));
+				datas.add(rs.getString("r.id"));
 				result.add(datas);
 			}
 			return result;
@@ -250,6 +252,7 @@ public class DataAccess extends Dao{
 				datas.add(rs.getString("shop_name"));
 				datas.add("1000");
 				datas.add(rs.getString("use_date_time"));
+				datas.add(rs.getString("shops_id"));
 				result.add(datas);
 			}
 			return result;
