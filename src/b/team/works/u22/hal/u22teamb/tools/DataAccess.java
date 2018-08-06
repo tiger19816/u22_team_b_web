@@ -263,7 +263,7 @@ public class DataAccess extends Dao{
 		}
 	}
 
-	//ログインチェック情報を抽出（view検索）
+	//夫婦のログインチェック情報を抽出（view検索）
 	public ArrayList<String> UserLoginSelect(String mail , String password) throws Exception, SQLException {
 		String where = "mail = '" + mail + "' AND password = '" + password + "'" ;
 		this.SelectWhere(" userlist ", where);
@@ -282,6 +282,26 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
+
+	//店のログインチェック情報を抽出（view検索）
+		public ArrayList<String> StoreLoginSelect(String id , String password) throws Exception, SQLException {
+			String where = "id = '" + id + "' AND password = '" + password + "'" ;
+			this.SelectWhere(" shops ", where);
+			ArrayList<String> result = new ArrayList<String>();
+			try {
+				if(rs.next()) {
+					result.add(rs.getString("id"));
+					result.add(rs.getString("name"));
+				}else {
+					result = null;
+				}
+				return result;
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }
