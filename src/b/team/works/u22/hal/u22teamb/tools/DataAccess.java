@@ -201,7 +201,7 @@ public class DataAccess extends Dao{
 	//予約リストの行毎に表示する情報を抽出（妻主キー検索）
 	public ArrayList<ArrayList<String>> ReservationListSelect(int id) throws Exception, SQLException {
 		String where = "r.female_id = " + id + " AND delete_flag = 0 " ;
-		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.id = rs.id ", where);
+		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id ", where);
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 		try {
 			while(rs.next()) {
@@ -223,7 +223,7 @@ public class DataAccess extends Dao{
 	//予約リストの１データ毎に表示する情報を抽出（予約主キー検索）
 		public ArrayList<String> ReservationDataSelect(int id) throws Exception, SQLException {
 			String where = "r.id = " + id + " AND delete_flag = 0 " ;
-			this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.id = rs.id ", where);
+			this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id ", where);
 			ArrayList<String> result = new ArrayList<String>();
 			try {
 				while(rs.next()) {
@@ -244,7 +244,7 @@ public class DataAccess extends Dao{
 	//履歴リストの行毎に表示する情報を抽出（妻主キー検索）
 	public ArrayList<ArrayList<String>> HistoryListSelect(int id) throws Exception, SQLException {
 		String where = "r.female_id = " + id + " AND visit_flag = 0 AND delete_flag = 0  " ;
-		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.id = rs.id ", where);
+		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id ", where);
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 		try {
 			while(rs.next()) {
