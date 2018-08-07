@@ -208,6 +208,8 @@ public class DataAccess extends Dao{
 				ArrayList<String> datas = new ArrayList<String>();
 				datas.add(rs.getString("shop_name"));
 				datas.add(rs.getString("use_date_time"));
+				datas.add(rs.getString("shops_id"));
+				datas.add(rs.getString("r.id"));
 				result.add(datas);
 			}
 			return result;
@@ -217,6 +219,27 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
+
+	//予約リストの１データ毎に表示する情報を抽出（予約主キー検索）
+		public ArrayList<String> ReservationDataSelect(int id) throws Exception, SQLException {
+			String where = "r.id = " + id + " AND delete_flag = 0 " ;
+			this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.id = rs.id ", where);
+			ArrayList<String> result = new ArrayList<String>();
+			try {
+				while(rs.next()) {
+					result.add(rs.getString("r.id"));
+					result.add(rs.getString("shops_id"));
+					result.add(rs.getString("menu_no"));
+					result.add(rs.getString("use_date_time"));
+					result.add(rs.getString("shop_name"));
+				}
+				return result;
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
 
 	//履歴リストの行毎に表示する情報を抽出（妻主キー検索）
 	public ArrayList<ArrayList<String>> HistoryListSelect(int id) throws Exception, SQLException {
@@ -229,6 +252,7 @@ public class DataAccess extends Dao{
 				datas.add(rs.getString("shop_name"));
 				datas.add("1000");
 				datas.add(rs.getString("use_date_time"));
+				datas.add(rs.getString("shops_id"));
 				result.add(datas);
 			}
 			return result;
@@ -238,6 +262,46 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
+
+	//夫婦のログインチェック情報を抽出（view検索）
+	public ArrayList<String> UserLoginSelect(String mail , String password) throws Exception, SQLException {
+		String where = "mail = '" + mail + "' AND password = '" + password + "'" ;
+		this.SelectWhere(" userlist ", where);
+		ArrayList<String> result = new ArrayList<String>();
+		try {
+			while(rs.next()) {
+				result.add(rs.getString("id"));
+				result.add(rs.getString("sex"));
+				result.add(rs.getString("mail"));
+				result.add(rs.getString("password"));
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	//店のログインチェック情報を抽出（view検索）
+		public ArrayList<String> StoreLoginSelect(String id , String password) throws Exception, SQLException {
+			String where = "id = '" + id + "' AND password = '" + password + "'" ;
+			this.SelectWhere(" shops ", where);
+			ArrayList<String> result = new ArrayList<String>();
+			try {
+				if(rs.next()) {
+					result.add(rs.getString("id"));
+					result.add(rs.getString("name"));
+				}else {
+					result = null;
+				}
+				return result;
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }
