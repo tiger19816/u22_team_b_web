@@ -53,6 +53,8 @@ public class Shops {
 		this._freeName = "";
 	}
 
+//セッター++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 	/**
 	 * 店IDのセッター
 	 * @param id 店ID
@@ -75,6 +77,84 @@ public class Shops {
 		this._password = password;
 	}
 
+	public void setName(String name) {
+		this._name = name;
+	}
+
+	public void setPhonetic(String phonetic) {
+		this._phonetic = phonetic;
+	}
+
+	public void setOpenTime(String openTime) {
+		this._openTime = openTime;
+	}
+
+	public void setTel(String tel) {
+		this._tel = tel;
+	}
+
+	public void setAddress(String address) {
+		this._address = address;
+	}
+
+	public void setAverageBudget(int averageBudget) {
+		this._averageBudget = averageBudget;
+	}
+
+	public void setAverageBudget(String averageBudget) {
+		this._averageBudget = Integer.valueOf(averageBudget);
+	}
+
+	public void setPointLatitude(String pointLatitude) {
+		this._pointLatitude = pointLatitude;
+	}
+
+	public void setPointLatitude(Double pointLatitude) {
+		this._pointLatitude = Double.toString(pointLatitude);
+	}
+
+	public void setPointLongitude(String pointLongitude) {
+		this._pointLongitude = pointLongitude;
+	}
+
+	public void setPointLongitude(Double pointLongitude) {
+		this._pointLongitude = Double.toString(pointLongitude);
+	}
+
+	public void setLunchService(String lunchService) {
+		this._lunchService = lunchService;
+	}
+
+	public void setNonSmokingSeat(String nonSmokingSeat) {
+		this._nonSmokingSeat = nonSmokingSeat;
+	}
+
+	public void setCardUsage(String cardUsage) {
+		this._cardUsage = cardUsage;
+	}
+
+	public void setImage1(String image1) {
+		this._image1 = image1;
+	}
+
+	public void setImage2(String image2) {
+		this._image2 = image2;
+	}
+
+	public void setNo(int no) {
+		this._no = no;
+	}
+
+	public void setNo(String no) {
+		this._no = Integer.valueOf(no);
+	}
+
+	public void setFreeName(String freeName) {
+		this._freeName = freeName;
+	}
+
+//ゲッター++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 	/**
 	 * 店IDのゲッター
 	 * @return 店ID
@@ -89,8 +169,6 @@ public class Shops {
 	public String getPassword() {
 		return this._password;
 	}
-
-//+++以下追加分++++++++++++++++++++++++++++++++++++
 
 	public String getName() {
 		return this._name;
@@ -151,66 +229,4 @@ public class Shops {
 	public String getFreeName() {
 		return this._freeName;
 	}
-
-	public void setName(String name) {
-		this._name = name;
-	}
-
-	public void setPhonetic(String phonetic) {
-		this._phonetic = phonetic;
-	}
-
-	public void setOpenTime(String openTime) {
-		this._openTime = openTime;
-	}
-
-	public void setTel(String tel) {
-		this._tel = tel;
-	}
-
-	public void setAddress(String address) {
-		this._address = address;
-	}
-
-	public void setAverageBudget(int averageBudget) {
-		this._averageBudget = averageBudget;
-	}
-
-	public void setPointLatitude(String pointLatitude) {
-		this._pointLatitude = pointLatitude;
-	}
-
-	public void setPointLongitude(String pointLongitude) {
-		this._pointLongitude = pointLongitude;
-	}
-
-	public void setLunchService(String lunchService) {
-		this._lunchService = lunchService;
-	}
-
-	public void setNonSmokingSeat(String nonSmokingSeat) {
-		this._nonSmokingSeat = nonSmokingSeat;
-	}
-
-	public void setCardUsage(String cardUsage) {
-		this._cardUsage = cardUsage;
-	}
-
-	public void setImage1(String image1) {
-		this._image1 = image1;
-	}
-
-	public void setImage2(String image2) {
-		this._image2 = image2;
-	}
-
-	public void setNo(int no) {
-		this._no = no;
-	}
-
-	public void setFreeName(String freeName) {
-		this._freeName = freeName;
-	}
-
-
 }

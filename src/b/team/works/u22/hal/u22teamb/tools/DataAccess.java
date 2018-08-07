@@ -339,9 +339,10 @@ public class DataAccess extends Dao{
 	 * 店新規登録
 	 *
 	 * @param s 店エンティティクラス
+	 * @return 登録が完了したことを示すtrue
 	 * @throws Exception
 	 */
-	public void addStore(Shops s) throws Exception {
+	public Boolean addStore(Shops s) throws Exception {
 		try {
 			//shopsに対して
 			this._sql = "INSERT INTO shops "
@@ -397,6 +398,8 @@ public class DataAccess extends Dao{
 			this.pst.setString(3, s.getFreeName());
 
 			this.pst.executeUpdate();
+
+			return true;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
