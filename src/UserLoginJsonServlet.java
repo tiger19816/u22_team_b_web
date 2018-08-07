@@ -41,11 +41,13 @@ public class UserLoginJsonServlet extends HttpServlet {
 		String userMail = request.getParameter("mail");
 		String userPassword = request.getParameter("password");
 
-		userMail = "kazuki@ezweb.ne.jp";
-		userPassword = "12345";
-
-		userMail = "yumiko@ezweb.ne.jp";
-		userPassword = "12345";
+		if(userMail.equals("1")) {
+			userMail = "kazuki@ezweb.ne.jp";
+			userPassword = "12345";
+		} else {
+			userMail = "yumiko@ezweb.ne.jp";
+			userPassword = "12345";
+		}
 
 		//行毎のデータ
 		ArrayList<String> userDatas = new ArrayList<String>();
