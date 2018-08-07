@@ -54,6 +54,16 @@ public class ReservationInsert extends HttpServlet {
 		String menu_no = "7";
 		String female_id = "7";
 		String use_date_time = "2018-07-28 07:07:07";
+		String shops_id = request.getParameter("shops_id");
+		String shop_name = request.getParameter("shop_name");
+		String menu_no = request.getParameter("menu_no");
+		String female_id = request.getParameter("female_id");
+		String use_date_time = request.getParameter("use_date_time");
+
+//		String shops_id = "1234567";
+//		String menu_no = "7";
+//		String female_id = "7";
+//		String use_date_time = "2018-07-28 07:07:07";
 
 
 		/***************
@@ -77,6 +87,7 @@ public class ReservationInsert extends HttpServlet {
 		AccessDao dao1 = null;
 		try {
 			 dao1 = new AccessDao();
+			 dao1.shopInsert(shops_id, shop_name);
 			 count = dao1.update(Insert_sql);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
