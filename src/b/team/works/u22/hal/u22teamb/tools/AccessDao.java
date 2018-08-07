@@ -49,6 +49,7 @@ public class AccessDao extends Dao{
 		} catch(SQLException e) {
 			throw e;
 		}
+	}
 
     public void shopInsert(String shopsId, String shopName) {
 		String sql = "INSERT INTO reservationshops(id, shop_name) VALUES (?, ?);";
