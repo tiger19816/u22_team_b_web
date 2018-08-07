@@ -35,7 +35,22 @@ public class AccessDao extends Dao{
 		}
 	}
 
-	public void shopInsert(String shopsId, String shopName) {
+	public void close() throws SQLException {
+		try {
+			if(this.rs != null) {
+				this.rs.close();
+			}
+			if(this.pst != null) {
+				this.pst.close();
+			}
+			if(this.cn != null) {
+				this.cn.close();
+			}
+		} catch(SQLException e) {
+			throw e;
+		}
+
+    public void shopInsert(String shopsId, String shopName) {
 		String sql = "INSERT INTO reservationshops(id, shop_name) VALUES (?, ?);";
 		try {
 			this.pst = cn.prepareStatement(sql);
