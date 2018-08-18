@@ -11,21 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import b.team.works.u22.hal.u22teamb.tools.AccessDao;
 import b.team.works.u22.hal.u22teamb.tools.DataAccess;
-import entities.Female;
-import entities.Male;
 
 /**
- * Servlet implementation class MypageJsonTestServlet
+ * Servlet implementation class MalePasswordUpdateJsonServlet
  */
-@WebServlet("/MypageJsonTestServlet")
-public class MypageJsonTestServlet extends HttpServlet {
+@WebServlet("/MalePasswordUpdateJsonServlet")
+public class MalePasswordUpdateJsonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MypageJsonTestServlet() {
+    public MalePasswordUpdateJsonServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,51 +34,36 @@ public class MypageJsonTestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		//文字化け対策
 		request.setCharacterEncoding("utf-8");
 
-		//妻ID取得
-		String id = request.getParameter("id");
+		//取得
+		String userCode = request.getParameter("code");
+		String userPassword = request.getParameter("password");
 
-		//妻情報を格納する配列
-		ArrayList<Female> female = new ArrayList<Female>();
-
-		//夫情報を格納する配列
-		ArrayList<Male> male = new ArrayList<Male>();
+		ArrayList<String> userDatas = new ArrayList<String>();
 
 		//DBに接続
 		DataAccess da = null;
+		AccessDao ad = null;
 		try {
 			da = new DataAccess();
-
-			//妻情報抽出
-			female = da.FemaleSelect(id);
-
-			//夫ID取得
-			int maleId = female.get(0).getMaleId();
-
-			//夫情報抽出
-			male = da.MaleSelect(maleId);
-
-//			if("".equals(male.get(0).getPassword())) {
-//				male.get(0).setCode(da.MaleRegistrationCodeSelect(maleId , id));
-//			}
-			male.get(0).setCode("");
-
+			ad = new AccessDao();
+			userDatas.add(da.MaleRegistrationCodeSelect(userCode));
 			da.close();
+			userDatas.add(String.valueOf(ad.malePasswordUpdate(userDatas.get(0), userPassword)));
+			ad.close();
 		}
 		catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 		catch (Exception e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
 
-		request.setAttribute("female", female);
-		request.setAttribute("male", male);
-		RequestDispatcher rd = request.getRequestDispatcher("mypage_json_test.jsp");
+		request.setAttribute("USERDATAS", userDatas);
+		RequestDispatcher rd = request.getRequestDispatcher("male_password_update_json.jsp");
 		rd.forward(request, response);
 	}
 

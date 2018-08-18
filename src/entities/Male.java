@@ -18,6 +18,7 @@ public class Male {
 	private int _height;
 	private int _weight;
 	private String _profession;
+	private String _code;
 
 	/**
 	 * コンストラクタ
@@ -31,6 +32,7 @@ public class Male {
 		this._height = 0;
 		this._weight = 0;
 		this._profession = "";
+		this._code = "";
 	}
 
 
@@ -114,6 +116,14 @@ public class Male {
 		this._profession = profession;
 	}
 
+	/**
+	 * 夫登録用コードのセッター
+	 * @param code 登録用コード
+	 */
+	public void setCode(String code) {
+		this._code = code;
+	}
+
 //ゲッター++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	/**
@@ -171,5 +181,13 @@ public class Male {
 	 */
 	public String getProfession() {
 		return this._profession;
+	}
+
+	/**
+	 * 夫登録用コードのゲッター
+	 *  @return 登録用コード
+	 */
+	public String getCode() {
+		return this._code;
 	}
 }

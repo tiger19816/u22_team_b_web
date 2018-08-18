@@ -284,24 +284,41 @@ public class DataAccess extends Dao{
 	}
 
 	//店のログインチェック情報を抽出（view検索）
-		public ArrayList<String> StoreLoginSelect(String id , String password) throws Exception, SQLException {
-			String where = "id = '" + id + "' AND password = '" + password + "'" ;
-			this.SelectWhere(" shops ", where);
-			ArrayList<String> result = new ArrayList<String>();
-			try {
-				if(rs.next()) {
-					result.add(rs.getString("id"));
-					result.add(rs.getString("name"));
-				}else {
-					result = null;
-				}
-				return result;
+	public ArrayList<String> StoreLoginSelect(String id , String password) throws Exception, SQLException {
+		String where = "id = '" + id + "' AND password = '" + password + "'" ;
+		this.SelectWhere(" shops ", where);
+		ArrayList<String> result = new ArrayList<String>();
+		try {
+			if(rs.next()) {
+				result.add(rs.getString("id"));
+				result.add(rs.getString("name"));
+			}else {
+				result = null;
 			}
-			catch(Exception e) {
-				e.printStackTrace();
-				throw e;
-			}
+			return result;
 		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	//夫の登録用コードを抽出(夫主キー検索)
+	public String MaleRegistrationCodeSelect(String code) throws Exception, SQLException {
+		String where = " sc.id = "+ code ;
+		this.SelectWhere(" male m INNER JOIN signupcode sc ON m.id = sc.male_id INNER JOIN female f ON f.id = sc.female_id ", where);
+		String result = "";
+		try {
+			if(rs.next()) {
+				result = rs.getString("m.id");
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }
