@@ -322,7 +322,6 @@ public class DataAccess extends Dao{
 				result.add(rs.getString("name"));
 			}else {
 				result = null;
-<<<<<<< HEAD
 			}
 			return result;
 		}
@@ -340,16 +339,12 @@ public class DataAccess extends Dao{
 		try {
 			if(rs.next()) {
 				result = rs.getString("m.id");
-=======
->>>>>>> master
 			}
 			return result;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			throw e;
-<<<<<<< HEAD
-=======
 		}
 	}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -426,7 +421,6 @@ public class DataAccess extends Dao{
 		catch(Exception e) {
 			e.printStackTrace();
             throw e;
->>>>>>> master
 		}
 	}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

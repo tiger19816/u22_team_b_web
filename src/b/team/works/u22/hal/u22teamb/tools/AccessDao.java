@@ -103,7 +103,6 @@ public class AccessDao extends Dao{
 		return true;
 	}
 
-<<<<<<< HEAD
 	/**
 	 * 夫の新規登録時のパスワード追加(変更)用メソッド。
 	 * @param id
@@ -124,8 +123,6 @@ public class AccessDao extends Dao{
 		return true;
 	}
 
-
-=======
 	public String[] selectLatLng(String id) {
 		String sql = "SELECT point_latitude, point_longitude FROM female WHERE id = ?;";
 		String[] result = new String[2];
@@ -142,6 +139,5 @@ public class AccessDao extends Dao{
 		}
 		return result;
 	}
->>>>>>> master
 }
 
