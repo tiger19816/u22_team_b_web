@@ -5,11 +5,13 @@ import java.util.ArrayList;
 
 import entities.Female;
 import entities.Male;
+import entities.Shops;
 
 /**
  * SQL文クラス
  *
  * @author ohs60224
+ * こういうの+エンティティクラスはDB作成者が作成するものだと思う
  *
  */
 public class DataAccess extends Dao{
@@ -77,7 +79,13 @@ public class DataAccess extends Dao{
 
 //抽出系+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	//妻の情報を抽出
+	/**
+	 * 妻の情報を抽出
+	 *
+	 * @return 妻情報
+	 * @throws Exception
+	 * @throws SQLException
+	 */
 	public ArrayList<Female> FemaleSelect() throws Exception, SQLException {
 		this.Select("female");
 		ArrayList<Female> result = new ArrayList<Female>();
@@ -110,7 +118,14 @@ public class DataAccess extends Dao{
 		}
 	}
 
-	//妻の情報を抽出（主キー検索）
+	/**
+	 * 妻の情報を抽出（主キー検索）
+	 *
+	 * @param id 主キー値
+	 * @return 妻情報
+	 * @throws Exception
+	 * @throws SQLException
+	 */
 	public ArrayList<Female> FemaleSelect(String id) throws Exception, SQLException {
 		String where = "id = " + id;
 		this.SelectWhere("female", where);
@@ -145,7 +160,13 @@ public class DataAccess extends Dao{
 	}
 
 
-	//夫の情報を抽出
+	/**
+	 * 夫の情報を抽出
+	 *
+	 * @return 夫情報
+	 * @throws Exception
+	 * @throws SQLException
+	 */
 	public ArrayList<Male> MaleSelect() throws Exception, SQLException {
 		this.Select("male");
 		ArrayList<Male> result = new ArrayList<Male>();
@@ -171,7 +192,14 @@ public class DataAccess extends Dao{
 		}
 	}
 
-	//夫の情報を抽出（主キー検索）
+	/**
+	 * 夫の情報を抽出（主キー検索）
+	 *
+	 * @param id 主キー値
+	 * @return 夫情報
+	 * @throws Exception
+	 * @throws SQLException
+	 */
 	public ArrayList<Male> MaleSelect(int id) throws Exception, SQLException {
 		String where = "id = " + id;
 		this.SelectWhere("male", where);
@@ -221,25 +249,25 @@ public class DataAccess extends Dao{
 	}
 
 	//予約リストの１データ毎に表示する情報を抽出（予約主キー検索）
-		public ArrayList<String> ReservationDataSelect(int id) throws Exception, SQLException {
-			String where = "r.id = " + id + " AND delete_flag = 0 " ;
-			this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id ", where);
-			ArrayList<String> result = new ArrayList<String>();
-			try {
-				while(rs.next()) {
-					result.add(rs.getString("r.id"));
-					result.add(rs.getString("shops_id"));
-					result.add(rs.getString("menu_no"));
-					result.add(rs.getString("use_date_time"));
-					result.add(rs.getString("shop_name"));
-				}
-				return result;
+	public ArrayList<String> ReservationDataSelect(int id) throws Exception, SQLException {
+		String where = "r.id = " + id + " AND delete_flag = 0 " ;
+		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id ", where);
+		ArrayList<String> result = new ArrayList<String>();
+		try {
+			while(rs.next()) {
+				result.add(rs.getString("r.id"));
+				result.add(rs.getString("shops_id"));
+				result.add(rs.getString("menu_no"));
+				result.add(rs.getString("use_date_time"));
+				result.add(rs.getString("shop_name"));
 			}
-			catch(Exception e) {
-				e.printStackTrace();
-				throw e;
-			}
+			return result;
 		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
 	//履歴リストの行毎に表示する情報を抽出（妻主キー検索）
 	public ArrayList<ArrayList<String>> HistoryListSelect(int id) throws Exception, SQLException {
@@ -294,6 +322,7 @@ public class DataAccess extends Dao{
 				result.add(rs.getString("name"));
 			}else {
 				result = null;
+<<<<<<< HEAD
 			}
 			return result;
 		}
@@ -311,12 +340,93 @@ public class DataAccess extends Dao{
 		try {
 			if(rs.next()) {
 				result = rs.getString("m.id");
+=======
+>>>>>>> master
 			}
 			return result;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			throw e;
+<<<<<<< HEAD
+=======
+		}
+	}
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+//更新系+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	/**
+	 * 店新規登録
+	 *
+	 * @param s 店エンティティクラス
+	 * @return 登録が完了したことを示すtrue
+	 * @throws Exception
+	 */
+	public Boolean addStore(Shops s) throws Exception {
+		try {
+			//shopsに対して
+			this._sql = "INSERT INTO shops "
+					+ "(id, "
+					+ "password, "
+					+ "name, "
+					+ "phonetic, "
+					+ "open_time, "
+					+ "tel, "
+					+ "address, "
+					+ "average_budget, "
+					+ "point_latitude, "
+					+ "point_longitude, "
+					+ "lunch_service, "
+					+ "non_smoking_seat, "
+					+ "card_usage, "
+					+ "image1, "
+					+ "image2) "
+					+ "VALUES "
+					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			this.pst = this.cn.prepareStatement(this._sql);
+
+			this.pst.setInt(1, s.getId());
+			this.pst.setString(2, s.getPassword());
+			this.pst.setString(3, s.getName());
+			this.pst.setString(4, s.getPhonetic());
+			this.pst.setString(5, s.getOpenTime());
+			this.pst.setString(6, s.getTel());
+			this.pst.setString(7, s.getAddress());
+			this.pst.setInt(8, s.getAverageBudget());
+			this.pst.setString(9, s.getPointLatitude());
+			this.pst.setString(10, s.getPointLongitude());
+			this.pst.setString(11, s.getLunchService());
+			this.pst.setString(12, s.getNonSmokingSeat());
+			this.pst.setString(13, s.getCardUsage());
+			this.pst.setString(14, s.getImage1());
+			this.pst.setString(15, s.getImage2());
+
+			this.pst.executeUpdate();
+
+
+			//freewordに対して
+			this._sql = "INSERT INTO freeword "
+					+ "(shops_id, "
+					+ "no, "
+					+ "name) "
+					+ "VALUES "
+					+ "(?, ?, ?)";
+			this.pst = this.cn.prepareStatement(this._sql);
+
+			this.pst.setInt(1, s.getId());
+			this.pst.setInt(2, s.getNo());
+			this.pst.setString(3, s.getFreeName());
+
+			this.pst.executeUpdate();
+
+			return true;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+            throw e;
+>>>>>>> master
 		}
 	}
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
