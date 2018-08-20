@@ -94,5 +94,22 @@ public class AccessDao extends Dao{
 		}
 		return true;
 	}
+
+	public String[] selectLatLng(String id) {
+		String sql = "SELECT point_latitude, point_longitude FROM female WHERE id = ?;";
+		String[] result = new String[2];
+		try {
+			this.pst = cn.prepareStatement(sql);
+			this.pst.setString(1, id);
+			rs = pst.executeQuery();
+
+			if(rs.next()) {
+				result[0] = rs.getString("point_latitude");
+				result[1] = rs.getString("point_longitude");
+			}
+		} catch(SQLException e) {
+		}
+		return result;
+	}
 }
 
