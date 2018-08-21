@@ -1,7 +1,6 @@
 
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -34,37 +33,36 @@ public class RegistrationConfirmationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//文字化け対策
-				request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
 
+		int femaleId = 0;
 
 				/**************
 				 * 夫側の情報 *
 				 **************/
-				int male_id = 0;
+				String[] maleDatas;
+				maleDatas = new String[7];
 //				String male_name = request.getParameter("male_name");
+//				String male_birthday = request.getParameter("male_mail");
+//				String male_birthday = request.getParameter("male_password");
 //				String male_birthday = request.getParameter("male_birthday");
 //				String male_height = request.getParameter("male_height");
 //				String male_weight = request.getParameter("male_weight");
 //				String male_profession = request.getParameter("male_profession");
 
-				String male_name = "伊勢田こずえ";
-				String male_birthday = "2000-08-27";
-				String male_height = "200";
-				String male_weight = "70";
-				String male_profession = "100";
-
-
-				/******************
-				 * 夫側のINSERT文 *
-				 ******************/
-				String male_insert_sql = "INSERT INTO male(name,birthday,height,weight,profession)";
-				male_insert_sql +="VALUES('"+male_name+"','"+male_birthday+"',"+male_height+","+male_weight+",'"+male_profession+"');";
-				System.out.print(male_insert_sql);
+				maleDatas[0] = "伊勢田こずえ";
+				maleDatas[1] = "mail@gmail.com";
+				maleDatas[2] = "pass12345";
+				maleDatas[3] = "2000-08-27";
+				maleDatas[4] = "200";
+				maleDatas[5] = "70";
+				maleDatas[6] = "100";
 
 				/**************
 				 * 妻側の情報 *
 				 **************/
-
+				String[] femaleDatas;
+				femaleDatas = new String[12];
 //				String female_name = request.getParameter("female_name");
 //				String female_birthday = request.getParameter("female_birthday");
 //				String female_mail = request.getParameter("female_mail");
@@ -78,102 +76,48 @@ public class RegistrationConfirmationServlet extends HttpServlet {
 //				String female_point_latitude = request.getParameter("female_point_latitude");
 //				String female_point_longitude = request.getParameter("female_point_longtude");
 
-				String female_name = "伊勢田和雅";
-				String female_birthday = "1997-01-20";
-				String female_mail = "@@";
-				String female_password = "pas";
-				String female_icon_url = "c.html";
-				String female_card_number = "0000111122223333";
-				String female_card_expiraion_date = "1807";
-				String female_card_security_code = "1111";
-				String female_card_nominee = "ISEDA";
-				String female_address = "大阪";
-				String female_point_latitude = "111";
-				String female_point_longitude = "8";
+				femaleDatas[0] = "伊勢田和雅";
+				femaleDatas[1] = "1997-01-20";
+				femaleDatas[2] = "@@";
+				femaleDatas[3] = "pas";
+				femaleDatas[4] = "c.html";
+				femaleDatas[5] = "0000111122223333";
+				femaleDatas[6] = "1807";
+				femaleDatas[7] = "1111";
+				femaleDatas[8] = "ISEDA";
+				femaleDatas[9] = "大阪";
+				femaleDatas[10] = "111";
+				femaleDatas[11] = "8";
 
-
-
-
-				ResultSet rs = null;
-
-
-				/***********************
-				 * 夫の情報を登録用    *
-				 * 仮としてdao1と表記  *
-				 ***********************/
-				AccessDao  dao1 = null;
+				/**************
+				 * 情報を登録  *
+				 *************/
+				AccessDao ac = null;
 				try {
-					dao1 = new AccessDao();
-					male_id = dao1.InsertAut(male_insert_sql);
-					System.out.print("******************************");
+					ac = new AccessDao();
+					femaleId = ac.userInsert(maleDatas, femaleDatas);
 				} catch (ClassNotFoundException | SQLException e1) {
 					// TODO 自動生成された catch ブロック
 					e1.printStackTrace();
 				} finally {
-					if(dao1 != null) {
+					if(ac != null) {
 						try {
-							dao1.close();
+							ac.close();
 						} catch (SQLException e) {
 							// TODO: handle exception
 						}
 					}
 				}
 
-
-
-
-
-				/****************
-				 * 妻側の登録   *
-				 * 仮としてdao3 *
-				 ****************/
-
-
-				String female_insert_sql = "INSERT INTO female(name,birthday,mail,password,icon_url,card_number,card_expiration_date,card_security_code,card_nominee,address,point_latitude,point_longitude,male_id)";
-				female_insert_sql += "VALUES('"+female_name+"','"+female_birthday+"','"+female_mail+"','"+female_password+"','"+female_icon_url+"','"+female_card_number+"','"+female_card_expiraion_date+"','"+female_card_security_code+"','"+female_card_nominee+"','"+female_address+"',"+female_point_latitude+","+female_point_longitude+","+male_id+")";
-
-				System.out.print(female_insert_sql);
-
-
-				try {
-					System.out.print(female_insert_sql);
-
-					AccessDao dao3 = new AccessDao();
-					int insert = dao3.update(female_insert_sql);
-
-					if(insert != 0) {
-							request.setAttribute("result", "true");
-						}
-						else {
-							request.setAttribute("result", "false");
-						}
-				} catch (ClassNotFoundException e) {
-					// TODO 自動生成された catch ブロック
-					System.out.print(e);
-				} catch (SQLException e) {
-					// TODO 自動生成された catch ブロック
-					System.out.print(e);
+				if(0<femaleId) {
+					request.setAttribute("result", "true");
+				}else {
+					request.setAttribute("result", "false");
 				}
+		request.setAttribute("id", String.valueOf(femaleId));
 
-
-
-
-
-
-				RequestDispatcher rd = request.getRequestDispatcher("./RegistrationResult.jsp");
-				rd.forward(request, response);
-
-				//JSONを作成する
-//				response.setContentType("application/json; charset=UTF-8");
-//				PrintWriter out = response.getWriter();
-//				out.print("{");
-//				out.println("\"result\":true");
-//				out.println("}");
-
-
-
-
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher rd = request.getRequestDispatcher("./RegistrationResult.jsp");
+		rd.forward(request, response);
 
 	}
 
