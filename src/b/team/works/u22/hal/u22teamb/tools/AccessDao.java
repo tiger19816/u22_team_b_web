@@ -63,6 +63,14 @@ public class AccessDao extends Dao{
 		}
 	}
 
+    /**
+     * 予約内容のUPDATE用メソッド。
+     * @param reservationid
+     * @param menuNo
+     * @param date
+     * @param time
+     * @return boolean
+     */
 	public boolean reservationUpdate(String reservationid , String menuNo , String date , String time) {
 		String sql = "UPDATE reservation SET";
 		int count = 0;
@@ -87,6 +95,26 @@ public class AccessDao extends Dao{
 			for(int i=0; i<result.size(); i++) {
 				pst.setString((i+1), result.get(i));
 			}
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO: handle exception
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * 夫の新規登録時のパスワード追加(変更)用メソッド。
+	 * @param id
+	 * @param password
+	 * @return boolean
+	 */
+	public boolean malePasswordUpdate(String id , String password) {
+		String sql = "UPDATE male SET password = ? WHERE id = ? ;";
+		try {
+			this.pst = cn.prepareStatement(sql);
+			pst.setString(1, password);
+			pst.setString(2, id);
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO: handle exception

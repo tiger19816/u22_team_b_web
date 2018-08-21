@@ -26,5 +26,6 @@
 	"maleBirthday":"<%=male.get(0).getBirthday() %>",
 	"height":"<%=male.get(0).getHeight() %>",
 	"weight":"<%=male.get(0).getWeight() %>",
-	"profession":"<%=male.get(0).getProfession() %>"
+	"profession":"<%=male.get(0).getProfession() %>",
+	"maleRegistrationCode":"<%=male.get(0).getCode() %>"
 }
