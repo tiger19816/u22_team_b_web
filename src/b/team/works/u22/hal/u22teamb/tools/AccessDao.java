@@ -2,6 +2,8 @@ package b.team.works.u22.hal.u22teamb.tools;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 public class AccessDao extends Dao{
 
 	public AccessDao() throws SQLException, ClassNotFoundException {
@@ -84,8 +86,10 @@ public class AccessDao extends Dao{
 			if(flag>0) {
 				pst = cn.prepareStatement("SELECT last_insert_id()");
 				this.rs = this.pst.executeQuery();
+				String maleId = "";
 				if(rs.next()) {
 					result = rs.getInt("last_insert_id()");
+					maleId = String.valueOf(result);
 				}
 
 				//妻情報を登録。
@@ -116,6 +120,15 @@ public class AccessDao extends Dao{
 						result = rs.getInt("last_insert_id()");
 					}
 				}
+
+				String text = RandomStringUtils.randomAlphabetic(15);
+				String text2 = RandomStringUtils.random(10, text);
+				String sql = "INSERT INTO team_b_db.signupcode(id,female_id,male_id) VALUES (?,?,?);";
+				this.pst = cn.prepareStatement(female_sql);
+				pst.setString(1, text2);
+				pst.setString(2, String.valueOf(result));
+				pst.setString(3, maleId);
+				flag = pst.executeUpdate();
 			}
 
 			return result;

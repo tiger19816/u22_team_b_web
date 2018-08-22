@@ -42,52 +42,37 @@ public class RegistrationConfirmationServlet extends HttpServlet {
 				 **************/
 				String[] maleDatas;
 				maleDatas = new String[7];
-//				String male_name = request.getParameter("male_name");
-//				String male_birthday = request.getParameter("male_mail");
-//				String male_birthday = request.getParameter("male_password");
-//				String male_birthday = request.getParameter("male_birthday");
-//				String male_height = request.getParameter("male_height");
-//				String male_weight = request.getParameter("male_weight");
-//				String male_profession = request.getParameter("male_profession");
 
-				maleDatas[0] = "伊勢田こずえ";
-				maleDatas[1] = "mail@gmail.com";
-				maleDatas[2] = "pass12345";
-				maleDatas[3] = "2000-08-27";
-				maleDatas[4] = "200";
-				maleDatas[5] = "70";
-				maleDatas[6] = "100";
+				maleDatas[0] = request.getParameter("maleName");
+				maleDatas[1] = request.getParameter("maleMail");
+				maleDatas[2] = request.getParameter("malePassword");
+				maleDatas[3] = request.getParameter("maleBirthday");
+				maleDatas[4] = request.getParameter("maleHeight");
+				maleDatas[5] = request.getParameter("maleWeight");
+				maleDatas[6] = request.getParameter("maleProfession");
 
 				/**************
 				 * 妻側の情報 *
 				 **************/
 				String[] femaleDatas;
 				femaleDatas = new String[12];
-//				String female_name = request.getParameter("female_name");
-//				String female_birthday = request.getParameter("female_birthday");
-//				String female_mail = request.getParameter("female_mail");
-//				String female_password = request.getParameter("female_password");
-//				String female_icon_url = request.getParameter("female_icon_url");
-//				String female_card_number = request.getParameter("female_card_number");
-//				String female_card_expiraion_date = request.getParameter("female_card_expiration_date");
-//				String female_card_security_code = request.getParameter("female_card_security_code");
-//				String female_card_nominee = request.getParameter("female_card_nominee");
-//				String female_address = request.getParameter("female_address");
-//				String female_point_latitude = request.getParameter("female_point_latitude");
-//				String female_point_longitude = request.getParameter("female_point_longtude");
 
-				femaleDatas[0] = "伊勢田和雅";
-				femaleDatas[1] = "1997-01-20";
-				femaleDatas[2] = "@@";
-				femaleDatas[3] = "pas";
-				femaleDatas[4] = "c.html";
-				femaleDatas[5] = "0000111122223333";
-				femaleDatas[6] = "1807";
-				femaleDatas[7] = "1111";
-				femaleDatas[8] = "ISEDA";
-				femaleDatas[9] = "大阪";
-				femaleDatas[10] = "111";
-				femaleDatas[11] = "8";
+				femaleDatas[0] = request.getParameter("femaleName");
+				femaleDatas[1] = request.getParameter("femaleBirthday");
+				femaleDatas[2] = request.getParameter("femaleMail");
+				femaleDatas[3] = request.getParameter("femalePassword");
+				femaleDatas[4] = request.getParameter("femaleIcon");
+				femaleDatas[5] = request.getParameter("femaleCardNo");
+				femaleDatas[6] = request.getParameter("femaleCardDoneDeadline");
+				femaleDatas[7] = request.getParameter("femaleSecurityCode");
+				femaleDatas[8] = request.getParameter("femaleCardNomineeName");
+				femaleDatas[9] = request.getParameter("femaleAddress");
+				femaleDatas[10] = request.getParameter("femaleLatitude");
+				femaleDatas[11] = request.getParameter("femaleLongitude");
+
+				for(int i=0; i<femaleDatas.length; i++) {
+					System.out.println(String.valueOf(i)+"番目:"+femaleDatas[i]);
+				}
 
 				/**************
 				 * 情報を登録  *
