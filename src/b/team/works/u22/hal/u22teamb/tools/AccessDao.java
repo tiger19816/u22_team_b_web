@@ -147,7 +147,7 @@ public class AccessDao extends Dao{
      * @param time
      * @return boolean
      */
-	public boolean reservationUpdate(String reservationid , String menuNo , String date , String time) {
+	public boolean reservationUpdate(String reservationid , String menuNo , String date , String time , String message) {
 		String sql = "UPDATE reservation SET";
 		int count = 0;
 		ArrayList<String> result = new ArrayList<String>();
@@ -162,8 +162,16 @@ public class AccessDao extends Dao{
 			}
 			sql += " use_date_time = ? ";
 			result.add(date+" "+time);
+			count++;
 		}
-		sql +=  " WHERE id = ? ";
+		if(!"".equals(message)) {
+			if(count > 1) {
+				sql += ",";
+			}
+			sql += " message = ? ";
+			result.add(menuNo);
+		}
+		sql +=  " WHERE id = ? ORDER BY use_date_time";
 		System.out.println(sql);
 		result.add(reservationid);
 		try {
@@ -171,6 +179,24 @@ public class AccessDao extends Dao{
 			for(int i=0; i<result.size(); i++) {
 				pst.setString((i+1), result.get(i));
 			}
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO: handle exception
+			return false;
+		}
+		return true;
+	}
+
+	/**
+     * 予約内容を確認済みUPDATE用メソッド。
+     * @param reservationid
+     * @return boolean
+     */
+	public boolean reservationCheckUpdate(String reservationid) {
+		String sql = "UPDATE reservation SET check_flag = 1 WHERE id = ?;";
+		try {
+			this.pst = cn.prepareStatement(sql);
+			pst.setString(1, reservationid);
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO: handle exception
