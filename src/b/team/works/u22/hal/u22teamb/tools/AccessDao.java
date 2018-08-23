@@ -180,6 +180,24 @@ public class AccessDao extends Dao{
 	}
 
 	/**
+     * 予約内容を確認済みUPDATE用メソッド。
+     * @param reservationid
+     * @return boolean
+     */
+	public boolean reservationCheckUpdate(String reservationid) {
+		String sql = "UPDATE reservation SET check_flag = 1 WHERE id = ?;";
+		try {
+			this.pst = cn.prepareStatement(sql);
+			pst.setString(1, reservationid);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			// TODO: handle exception
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * 夫の新規登録時のパスワード追加(変更)用メソッド。
 	 * @param id
 	 * @param password

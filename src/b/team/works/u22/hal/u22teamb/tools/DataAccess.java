@@ -247,6 +247,28 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
+	//予約リストの行毎に表示する情報を抽出（夫主キー検索）
+		public ArrayList<ArrayList<String>> ReservationListSelect2(int id) throws Exception, SQLException {
+			String where = "m.id = " + id + " AND delete_flag = 0 " ;
+			this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id INNER JOIN female f ON r.female_id = f.id INNER JOIN male m ON f.male_id = m.id", where);
+			ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+			try {
+				while(rs.next()) {
+					ArrayList<String> datas = new ArrayList<String>();
+					datas.add(rs.getString("shop_name"));
+					datas.add(rs.getString("use_date_time"));
+					datas.add(rs.getString("shops_id"));
+					datas.add(rs.getString("r.id"));
+					datas.add(rs.getString("r.check_flag"));
+					result.add(datas);
+				}
+				return result;
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
 
 	//予約リストの１データ毎に表示する情報を抽出（予約主キー検索）
 	public ArrayList<String> ReservationDataSelect(int id) throws Exception, SQLException {
