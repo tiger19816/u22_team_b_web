@@ -3,8 +3,12 @@ package b.team.works.u22.hal.u22teamb.tools;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
+
 import entities.Female;
 import entities.Male;
+import entities.Reservation;
+import entities.ReservationFromMale;
 import entities.Shops;
 
 /**
@@ -347,6 +351,95 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
+	
+	/**
+	 * 夫ID、店IDから予約詳細を検索。但し、来店済、削除済は除外。
+	 * 
+	 * @param maleId 夫ID。
+	 * @param shopId 店ID。
+	 * @return ArrayList<Reservation>型。
+	 * 
+	 * @author Yuki Yoshida
+	 */
+	public ArrayList<ReservationFromMale> ReservationPerShopSelectFromMale(String maleId, String shopId) throws Exception {
+		String from = "reservation rsv LEFT JOIN v_couple cpl ON rsv.female_id = cpl.female_id";
+		String whereClause = "cpl.male_id = '" + maleId + "' "
+				+ "AND rsv.shops_id = '" + shopId + "' "
+				+ "AND rsv.visit_flag = 0 "
+				+ "AND rsv.delete_flag = 0 "
+//				+ "AND rsv.use_date_time LIKE CONCAT(CURDATE(), '%') "	// 当日のみ
+				;
+		
+		ArrayList<ReservationFromMale> result = new ArrayList<ReservationFromMale>();
+		
+		try {
+			this.SelectWhere(from, whereClause);
+			while(rs.next()) {
+				ReservationFromMale rfm = new ReservationFromMale();
+				
+				rfm.setReservationId(rs.getString("rsv.id"));
+				rfm.setFemaleId(rs.getString("cpl.female_id"));
+				rfm.setFemaleName(rs.getString("cpl.female_name"));
+				rfm.setMaleId(rs.getString("cpl.male_id"));
+				rfm.setMaleName(rs.getString("cpl.male_name"));
+				rfm.setMenuNo(rs.getString("rsv.menu_no"));
+				rfm.setUseDateTime(rs.getTimestamp("rsv.use_date_time"));
+				
+				result.add(rfm);
+			} 
+//			else {
+//				ReservationFromMale rfm = new ReservationFromMale();
+//				
+//				rfm.setFemaleName("");
+//				rfm.setMaleName("");
+//				rfm.setMenuNo("今日のご飯はないよ！");
+//				
+//				result.add(rfm);
+//			}
+			return result;
+		}
+		catch(Exception e) {
+			throw e;
+		}
+	}
+	/**
+	 * 夫ID、店IDから予約詳細を検索。但し、来店済、削除済は除外。
+	 * 
+	 * @param maleId 夫ID。
+	 * @param shopId 店ID。
+	 * @return ArrayList<Reservation>型。
+	 * 
+	 * @author Yuki Yoshida
+	 */
+	public ArrayList<ReservationFromMale> ReservationListPerShopSelect(String shopId) throws Exception {
+		String from = "reservation rsv LEFT JOIN v_couple cpl ON rsv.female_id = cpl.female_id";
+		String whereClause = "rsv.shops_id = '" + shopId + "' "
+				+ "AND rsv.visit_flag = 0 "
+				+ "AND rsv.delete_flag = 0 "
+//				+ "AND rsv.use_date_time LIKE CONCAT(CURDATE(), '%') "	// 当日のみ
+				;
+		
+		ArrayList<ReservationFromMale> result = new ArrayList<ReservationFromMale>();
+		
+		try {
+			this.SelectWhere(from, whereClause);
+			while(rs.next()) {
+				ReservationFromMale rfm = new ReservationFromMale();
+				
+				rfm.setReservationId(rs.getString("rsv.id"));
+				rfm.setMaleId(rs.getString("cpl.male_id"));
+				rfm.setMaleName(rs.getString("cpl.male_name"));
+				rfm.setUseDateTime(rs.getTimestamp("rsv.use_date_time"));
+				
+				result.add(rfm);
+			}
+			return result;
+		}
+		catch(Exception e) {
+			throw e;
+		}
+	}
+	
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -423,6 +516,31 @@ public class DataAccess extends Dao{
             throw e;
 		}
 	}
+	
+	/**
+	 * 来店処理。
+	 * 
+	 * @param 
+	 * @return 更新件数。
+	 * 
+	 * @author Yuki Yoshida
+	 */
+	public int updateVisitFlag(String reservationId) throws Exception {
+		try {
+			this._sql = "UPDATE reservation "
+					+ "SET visit_flag = 1 "
+					+ "WHERE id = ?";
+			
+			this.pst = this.cn.prepareStatement(this._sql);
+			
+			this.pst.setInt(1, Integer.parseInt(reservationId));
+			
+			return this.pst.executeUpdate();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+	
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }
