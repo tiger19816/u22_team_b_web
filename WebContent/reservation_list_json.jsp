@@ -3,6 +3,7 @@
 <%@ page import="java.util.*" %>
 <%
 ArrayList<ArrayList<String>> reservationList = (ArrayList<ArrayList<String>>)request.getAttribute("LIST");
+if(reservationList == null){ reservationList = new ArrayList<ArrayList<String>>();}
 %>
 {
 	"reservationList":[
@@ -11,7 +12,8 @@ ArrayList<ArrayList<String>> reservationList = (ArrayList<ArrayList<String>>)req
 			"storeName":"<%= reservationList.get(i).get(0) %>",
 			"reservationDate":"<%= reservationList.get(i).get(1) %>",
 			"storeId":"<%= reservationList.get(i).get(2) %>",
-			"reservationId":"<%= reservationList.get(i).get(3) %>"
+			"reservationId":"<%= reservationList.get(i).get(3) %>",
+			"newImage":"<%= reservationList.get(i).get(4) %>"
 		}<% if(i != (reservationList.size()-1)){ %>,<% } %>
 		<% } %>
 	]

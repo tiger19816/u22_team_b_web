@@ -50,18 +50,13 @@ public class ReservationInsert extends HttpServlet {
 		String menu_no = request.getParameter("menu_no");
 		String female_id = request.getParameter("female_id");
 		String use_date_time = request.getParameter("use_date_time");
-
-//		String shops_id = "1234567";
-//		String menu_no = "7";
-//		String female_id = "7";
-//		String use_date_time = "2018-07-28 07:07:07";
-
+		String message = request.getParameter("message");
 
 		/***************
 		 * SQL文の作成 *
 		 ***************/
-		String Insert_sql = "INSERT INTO reservation(shops_id,menu_no,female_id,use_date_time"
-				+ ")VALUES('"+shops_id+"',"+menu_no+","+female_id+",'"+use_date_time+"');";
+		String Insert_sql = "INSERT INTO reservation(shops_id,menu_no,female_id,use_date_time,message"
+				+ ")VALUES('"+shops_id+"',"+menu_no+","+female_id+",'"+use_date_time+"','"+ message+"');";
 		System.out.println(Insert_sql);
 
 		/**********************
@@ -69,7 +64,6 @@ public class ReservationInsert extends HttpServlet {
 		 **********************/
 
 		int count = 0;
-
 
 		/************************
 		 * 予約テーブルへの登録 *

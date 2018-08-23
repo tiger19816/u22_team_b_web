@@ -49,13 +49,14 @@ public class ReservationDataJsonServlet extends HttpServlet {
 					String menuNo = request.getParameter("menuNo");
 					String date = request.getParameter("date");
 					String time = request.getParameter("time");
+					String message = request.getParameter("message");
 
 					if(!"".equals(menuNo) || (!"".equals(date)  && !"".equals(time))) {
 						//DBに接続
 						AccessDao ad = null;
 						try {
 							ad = new AccessDao();
-							Boolean result = ad.reservationUpdate(reservationId, menuNo, date, time);
+							Boolean result = ad.reservationUpdate(reservationId, menuNo, date, time ,message);
 							request.setAttribute("RESULT", result);
 							ad.close();
 						}

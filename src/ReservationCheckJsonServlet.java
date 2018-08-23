@@ -2,7 +2,6 @@
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,19 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import b.team.works.u22.hal.u22teamb.tools.DataAccess;
+import b.team.works.u22.hal.u22teamb.tools.AccessDao;
 
 /**
- * Servlet implementation class ReservationListJsonServlet
+ * Servlet implementation class ReservationCheckJsonServlet
  */
-@WebServlet("/ReservationListJsonServlet")
-public class ReservationListJsonServlet extends HttpServlet {
+@WebServlet("/ReservationCheckJsonServlet")
+public class ReservationCheckJsonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReservationListJsonServlet() {
+    public ReservationCheckJsonServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,26 +32,22 @@ public class ReservationListJsonServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		//文字化け対策
 		request.setCharacterEncoding("utf-8");
 
-		//ID取得
+		//予約ID取得
 		String id = request.getParameter("id");
-		String sex = request.getParameter("sex");
 
-		//行毎のデータ
-		ArrayList<ArrayList<String>> reservationList = new ArrayList<ArrayList<String>>();
+		Boolean result = false;
 
 		//DBに接続
-		DataAccess da = null;
+		AccessDao ad = null;
 		try {
-			da = new DataAccess();
-			if("0".equals(sex)) {
-				reservationList = da.ReservationListSelect(Integer.parseInt(id));
-			}else {
-				reservationList = da.ReservationListSelect2(Integer.parseInt(id));
-			}
-			da.close();
+			ad = new AccessDao();
+			result = ad.reservationCheckUpdate(id);
+			ad.close();
+			request.setAttribute("RESULT", String.valueOf(result));
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -61,8 +56,7 @@ public class ReservationListJsonServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		request.setAttribute("LIST", reservationList);
-		RequestDispatcher rd = request.getRequestDispatcher("reservation_list_json.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("reservation_check_json.jsp");
 		rd.forward(request, response);
 	}
 
