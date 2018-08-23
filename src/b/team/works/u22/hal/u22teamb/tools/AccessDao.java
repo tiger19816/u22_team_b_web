@@ -147,7 +147,7 @@ public class AccessDao extends Dao{
      * @param time
      * @return boolean
      */
-	public boolean reservationUpdate(String reservationid , String menuNo , String date , String time) {
+	public boolean reservationUpdate(String reservationid , String menuNo , String date , String time , String message) {
 		String sql = "UPDATE reservation SET";
 		int count = 0;
 		ArrayList<String> result = new ArrayList<String>();
@@ -162,8 +162,16 @@ public class AccessDao extends Dao{
 			}
 			sql += " use_date_time = ? ";
 			result.add(date+" "+time);
+			count++;
 		}
-		sql +=  " WHERE id = ? ";
+		if(!"".equals(message)) {
+			if(count > 1) {
+				sql += ",";
+			}
+			sql += " message = ? ";
+			result.add(menuNo);
+		}
+		sql +=  " WHERE id = ? ORDER BY use_date_time";
 		System.out.println(sql);
 		result.add(reservationid);
 		try {

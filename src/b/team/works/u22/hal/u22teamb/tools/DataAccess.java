@@ -238,6 +238,7 @@ public class DataAccess extends Dao{
 				datas.add(rs.getString("use_date_time"));
 				datas.add(rs.getString("shops_id"));
 				datas.add(rs.getString("r.id"));
+				datas.add(rs.getString("r.check_flag"));
 				result.add(datas);
 			}
 			return result;
@@ -282,6 +283,7 @@ public class DataAccess extends Dao{
 				result.add(rs.getString("menu_no"));
 				result.add(rs.getString("use_date_time"));
 				result.add(rs.getString("shop_name"));
+				result.add(rs.getString("message"));
 			}
 			return result;
 		}

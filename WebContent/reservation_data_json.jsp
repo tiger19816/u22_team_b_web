@@ -9,5 +9,6 @@
 	"shopId":"<%=reservationData.get(1) %>",
 	"menuNo":"<%=reservationData.get(2) %>",
 	"dateTime":"<%=reservationData.get(3) %>",
-	"shopName":"<%=reservationData.get(4) %>"
+	"shopName":"<%=reservationData.get(4) %>",
+	"message":"<%=reservationData.get(5) %>"
 }

@@ -3,6 +3,7 @@
 <%@ page import="java.util.*" %>
 <%
 ArrayList<ArrayList<String>> reservationList = (ArrayList<ArrayList<String>>)request.getAttribute("LIST");
+if(reservationList == null){ reservationList = new ArrayList<ArrayList<String>>();}
 %>
 {
 	"reservationList":[
