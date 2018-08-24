@@ -20,7 +20,7 @@ public class MyMessage {
 	 * サーバーキー。
 	 * （Firebaseコンソール → プロジェクトの設定 → クラウドメッセージング → サーバーキー。）
 	 */
-	private String SERVER_KEY = "AAAA1hAFF08:APA91bEO_kOwJgxCPOFDP9By4x_ExZ0XjPBHVOcNrdmqtvrW5xj-UiVJ5bS2wGdJg1N3EWOQ2F2XqJkpiZ1sRia28G1F4i7cuJuSqLy8HTvHM7J0WKbCeT-GwrbH3KtDh5Eme283uxdI9LGRzIQlMO93fJSUSYo5Tg";
+	private final String SERVER_KEY = "AAAAvhMYG0A:APA91bEe7E_XwiAShh9JEo05UHjfiInBycBE5O8ikCoFUUbyXDbXh6VsTMtbw3Lco9bxny-8a4Vdr7DLuIVktS4ZOnWT9lrUZf8Kf26eN7xCx7aF5CG18b355gIZvAH62-E-BJUNfjZJ";
 	/**
 	 * リクエスト先エンドポイント。
 	 * （変更禁止。）
