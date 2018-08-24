@@ -544,12 +544,12 @@ public class DataAccess extends Dao{
 	/**
 	 * 来店処理。
 	 * 
-	 * @param 
-	 * @return 更新件数。
+	 * @param reservationId 予約ID。
+	 * @return 予約情報。ReservationFromMale型。
 	 * 
 	 * @author Yuki Yoshida
 	 */
-	public int updateVisitFlag(String reservationId) throws Exception {
+	public ReservationFromMale updateVisitFlag(String reservationId) throws Exception {
 		try {
 			this._sql = "UPDATE reservation "
 					+ "SET visit_flag = 1 "
@@ -559,7 +559,27 @@ public class DataAccess extends Dao{
 			
 			this.pst.setInt(1, Integer.parseInt(reservationId));
 			
-			return this.pst.executeUpdate();
+			this.pst.executeUpdate();
+			
+			String from = "reservation rsv LEFT JOIN v_couple cpl ON rsv.female_id = cpl.female_id LEFT JOIN tokens t ON cpl.female_id = t.id";
+			String whereClause = "rsv.id = '" + reservationId + "' " 
+							   + "AND t.gender = 2 "
+			;
+			
+			ReservationFromMale rfm = new ReservationFromMale();
+			this.SelectWhere(from, whereClause);
+			while(rs.next()) {
+				rfm.setReservationId(rs.getString("rsv.id"));
+				rfm.setFemaleId(rs.getString("cpl.female_id"));
+				rfm.setFemaleName(rs.getString("cpl.female_name"));
+				rfm.setMaleId(rs.getString("cpl.male_id"));
+				rfm.setMaleName(rs.getString("cpl.male_name"));
+				rfm.setMenuNo(rs.getString("rsv.menu_no"));
+				rfm.setUseDateTime(rs.getTimestamp("rsv.use_date_time"));
+				rfm.setFemaleToken(rs.getString("t.token"));
+			} 
+			
+			return rfm;
 		} catch (Exception e) {
 			throw e;
 		}

@@ -20,6 +20,8 @@ public class ReservationFromMale {
 	private String _femaleName;
 	private String _menuNo;	// １つ？
 	private Timestamp _useDateTime;
+	private String _maleToken;
+	private String _femaleToken;
 	
 	public ReservationFromMale() {
 		this._reservationId = "";
@@ -114,5 +116,33 @@ public class ReservationFromMale {
 	 */
 	public void setUseDateTime(Timestamp useDateTime) {
 		this._useDateTime = useDateTime;
+	}
+
+	/**
+	 * @return 夫トークン。
+	 */
+	public String getMaleToken() {
+		return this._maleToken;
+	}
+
+	/**
+	 * @param maleToken 夫トークン。
+	 */
+	public void setMaleToken(String maleToken) {
+		this._maleToken = maleToken;
+	}
+
+	/**
+	 * @return the 妻トークン。
+	 */
+	public String getFemaleToken() {
+		return this._femaleToken;
+	}
+
+	/**
+	 * @param femaleToken 妻トークン。
+	 */
+	public void setFemaleToken(String femaleToken) {
+		this._femaleToken = femaleToken;
 	}
 }
