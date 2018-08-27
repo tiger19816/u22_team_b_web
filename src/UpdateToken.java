@@ -8,22 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import b.team.works.u22.hal.u22teamb.tools.DataAccess;
-import b.team.works.u22.hal.u22teamb.tools.MyMessage;
-import entities.ReservationFromMale;
 
 /**
- * 来店処理を行うサーブレット。
+ * トークンを更新するサーブレット。
  * 
  * @author Yuki Yoshida
  */
-@WebServlet("/UpdateVisitFlagServlet")
-public class UpdateVisitFlagServlet extends HttpServlet {
+@WebServlet("/UpdateToken")
+public class UpdateToken extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateVisitFlagServlet() {
+    public UpdateToken() {
         super();
     }
 
@@ -35,26 +33,18 @@ public class UpdateVisitFlagServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=UTF-8");
 		
-		String reservationId = request.getParameter("reservation_id");
-		
-		String title = "U22夫管理アプリ";
-		String message = "さんが店舗へ来店しました！";
+		String userId = request.getParameter("user_id");
+		String gender = request.getParameter("gender");
+		String token = request.getParameter("token");
 		
 		try {
-			String token = "";
-			String male = "";
-			
 			DataAccess da = new DataAccess();
-			ReservationFromMale rfm = da.updateVisitFlag(reservationId);
 			
-			token = rfm.getFemaleToken();
-			male = rfm.getMaleName();
+			int i = da.updateToken(userId, Integer.parseInt(gender), token);
 			
 			da.close();
 			
-			// 妻に通知。
-			MyMessage push = new MyMessage(title, male + message);
-			push.sendToToken(token);
+			System.out.println("The token was updated. Update Records = " + i + ".");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
