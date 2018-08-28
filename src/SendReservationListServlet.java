@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import b.team.works.u22.hal.u22teamb.tools.DataAccess;
-import entities.*;
+import entities.ReservationFromMale;
 
 /**
  * 店毎に予約一覧をJSON出力するメソッド。
- * 
+ *
  * @author Yuki Yoshida
  */
 @WebServlet("/SendReservationListServlet")
 public class SendReservationListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -37,13 +37,14 @@ public class SendReservationListServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=UTF-8");
-		
+
 		// イニシャライズ。
 		PrintWriter out = response.getWriter();	// 排出用変数。
 		ArrayList<ReservationFromMale> list = new ArrayList<ReservationFromMale>();
 		String result = "";	// 排出文字列。
 		String shopId = request.getParameter("shop_id");
-		
+		shopId = "7116760";
+
 		// DBアクセス。
 		try {
 			DataAccess da = new DataAccess();
@@ -52,7 +53,7 @@ public class SendReservationListServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		// JSONの生成。
 		result += "[";
 			for (int i = 0; i < list.size(); i++) {
@@ -73,7 +74,7 @@ public class SendReservationListServlet extends HttpServlet {
 				}
 			}
 		result += "]";
-		
+
 		// 文字列の生成。
 		out.println(result);
 	}

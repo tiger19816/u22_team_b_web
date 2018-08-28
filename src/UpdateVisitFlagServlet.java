@@ -1,6 +1,7 @@
 
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,13 +14,13 @@ import entities.ReservationFromMale;
 
 /**
  * 来店処理を行うサーブレット。
- * 
+ *
  * @author Yuki Yoshida
  */
 @WebServlet("/UpdateVisitFlagServlet")
 public class UpdateVisitFlagServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -34,24 +35,24 @@ public class UpdateVisitFlagServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=UTF-8");
-		
+
 		String reservationId = request.getParameter("reservation_id");
-		
+
 		String title = "U22夫管理アプリ";
 		String message = "さんが店舗へ来店しました！";
-		
+
 		try {
 			String token = "";
 			String male = "";
-			
+
 			DataAccess da = new DataAccess();
 			ReservationFromMale rfm = da.updateVisitFlag(reservationId);
-			
+
 			token = rfm.getFemaleToken();
 			male = rfm.getMaleName();
-			
+
 			da.close();
-			
+
 			// 妻に通知。
 			MyMessage push = new MyMessage(title, male + message);
 			push.sendToToken(token);
