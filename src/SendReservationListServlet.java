@@ -43,7 +43,6 @@ public class SendReservationListServlet extends HttpServlet {
 		ArrayList<ReservationFromMale> list = new ArrayList<ReservationFromMale>();
 		String result = "";	// 排出文字列。
 		String shopId = request.getParameter("shop_id");
-		shopId = "7116760";
 
 		// DBアクセス。
 		try {
