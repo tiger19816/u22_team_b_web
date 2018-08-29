@@ -41,8 +41,6 @@ public class MypageJsonTestServlet extends HttpServlet {
 		//妻ID取得
 		String id = request.getParameter("id");
 
-		id = "6";
-
 		//妻情報を格納する配列
 		ArrayList<Female> female = new ArrayList<Female>();
 
