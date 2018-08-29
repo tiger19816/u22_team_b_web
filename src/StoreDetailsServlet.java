@@ -48,6 +48,9 @@ public class StoreDetailsServlet extends HttpServlet {
 
 		// API実行、結果を取得し出力
 		String str = ApiConnect.getNodeList(uri.toString());
+		if (!str.contains("rest")) {	// 取得できなかった場合は空文字を送信。
+			str = "{\"rest\": {\"id\": \"\",\"name\": \"\",\"latitude\": \"0\",\"longitude\": \"0\",\"opentime\": \"\",\"holiday\": \"\",\"tel\": \"\",\"address\": \"\",\"image_url\": {\"shop_image1\": {},\"shop_image2\": {},\"qrcode\": \"https:\\/\\/\"},\"pr\": {\"pr_short\": \"\",\"pr_long\": \"\"},\"lunch\": \"\"}}";
+		}
 		//JSONを作成する
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();
