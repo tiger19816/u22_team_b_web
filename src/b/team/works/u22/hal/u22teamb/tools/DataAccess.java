@@ -356,14 +356,14 @@ public class DataAccess extends Dao{
 		}
 	}
 
-	//夫の登録用コードを抽出(夫主キー検索)
-	public String MaleRegistrationCodeSelect(String code) throws Exception, SQLException {
-		String where = " sc.id = "+ code ;
+	//夫の登録用コードを抽出(妻主キー検索)
+	public String MaleRegistrationCodeSelect(String femaleId) throws Exception, SQLException {
+		String where = " sc.female_id = '"+ femaleId + "' ";
 		this.SelectWhere(" male m INNER JOIN signupcode sc ON m.id = sc.male_id INNER JOIN female f ON f.id = sc.female_id ", where);
 		String result = "";
 		try {
 			if(rs.next()) {
-				result = rs.getString("m.id");
+				result = rs.getString("sc.id");
 			}
 			return result;
 		}

@@ -41,6 +41,8 @@ public class MypageJsonTestServlet extends HttpServlet {
 		//妻ID取得
 		String id = request.getParameter("id");
 
+		id = "6";
+
 		//妻情報を格納する配列
 		ArrayList<Female> female = new ArrayList<Female>();
 
@@ -61,10 +63,9 @@ public class MypageJsonTestServlet extends HttpServlet {
 			//夫情報抽出
 			male = da.MaleSelect(maleId);
 
-//			if("".equals(male.get(0).getPassword())) {
-//				male.get(0).setCode(da.MaleRegistrationCodeSelect(maleId , id));
-//			}
-			male.get(0).setCode("");
+			if("".equals(male.get(0).getPassword())) {
+				male.get(0).setCode(da.MaleRegistrationCodeSelect(id));
+			}
 
 			da.close();
 		}

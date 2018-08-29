@@ -45,7 +45,7 @@ public class UserLoginJsonServlet extends HttpServlet {
 			userMail = "kazuki@ezweb.ne.jp";
 			userPassword = "12345";
 		} else {
-			userMail = "yumiko@ezweb.ne.jp";
+			userMail = "aaa@bb.com";//yumiko@ezweb.ne.jp
 			userPassword = "12345";
 		}
 
