@@ -34,17 +34,14 @@ public class ReservationInsert extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
-
 		/****************
 		 * 文字化け対策 *
 		 ****************/
 		request.setCharacterEncoding("utf-8");
 
-
 		/****************
 		 * 値の受け取り *
 		 ****************/
-
 		String shops_id = request.getParameter("shops_id");
 		String shop_name = request.getParameter("shop_name");
 		String menu_no = request.getParameter("menu_no");
@@ -62,13 +59,11 @@ public class ReservationInsert extends HttpServlet {
 		/**********************
 		 * 登録件数のカウント *
 		 **********************/
-
 		int count = 0;
 
 		/************************
 		 * 予約テーブルへの登録 *
 		 ************************/
-
 		AccessDao dao1 = null;
 		try {
 			 dao1 = new AccessDao();
@@ -87,11 +82,9 @@ public class ReservationInsert extends HttpServlet {
 			}
 		}
 
-
 		/************
 		 * 登録結果 *
 		 ************/
-
 		if(count != 0) {
 			request.setAttribute("result", "true");
 		}
@@ -99,19 +92,8 @@ public class ReservationInsert extends HttpServlet {
 			request.setAttribute("result", "false");
 		}
 
-
-
 		RequestDispatcher rd = request.getRequestDispatcher("./RegistrationResult.jsp");
 		rd.forward(request, response);
-
-		//JSONを作成する
-//		response.setContentType("application/json; charset=UTF-8");
-//		PrintWriter out = response.getWriter();
-//		out.print("{");
-//		out.println("\"result\":true");
-//		out.println("}");
-
-
 
 	}
 

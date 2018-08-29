@@ -61,10 +61,9 @@ public class MypageJsonTestServlet extends HttpServlet {
 			//夫情報抽出
 			male = da.MaleSelect(maleId);
 
-//			if("".equals(male.get(0).getPassword())) {
-//				male.get(0).setCode(da.MaleRegistrationCodeSelect(maleId , id));
-//			}
-			male.get(0).setCode("");
+			if("".equals(male.get(0).getPassword())) {
+				male.get(0).setCode(da.MaleRegistrationCodeSelect(id));
+			}
 
 			da.close();
 		}

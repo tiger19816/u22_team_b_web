@@ -81,7 +81,6 @@ public class AccessDao extends Dao{
 			pst.setString(6, maleDatas[5]);
 			pst.setString(7, maleDatas[6]);
 			int flag = pst.executeUpdate();
-			System.out.println(flag);
 			//夫ID取得。
 			if(flag>0) {
 				pst = cn.prepareStatement("SELECT last_insert_id()");
@@ -110,7 +109,6 @@ public class AccessDao extends Dao{
 				pst.setString(12, femaleDatas[11]);
 				pst.setString(13, String.valueOf(result));
 				flag = pst.executeUpdate();
-				System.out.println(flag);
 				//妻ID取得。
 				result = 0;
 				if(flag>0) {
@@ -124,7 +122,7 @@ public class AccessDao extends Dao{
 				String text = RandomStringUtils.randomAlphabetic(15);
 				String text2 = RandomStringUtils.random(10, text);
 				String sql = "INSERT INTO team_b_db.signupcode(id,female_id,male_id) VALUES (?,?,?);";
-				this.pst = cn.prepareStatement(female_sql);
+				this.pst = cn.prepareStatement(sql);
 				pst.setString(1, text2);
 				pst.setString(2, String.valueOf(result));
 				pst.setString(3, maleId);

@@ -3,11 +3,8 @@ package b.team.works.u22.hal.u22teamb.tools;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
-
 import entities.Female;
 import entities.Male;
-import entities.Reservation;
 import entities.ReservationFromMale;
 import entities.Shops;
 
@@ -232,7 +229,7 @@ public class DataAccess extends Dao{
 
 	//予約リストの行毎に表示する情報を抽出（妻主キー検索）
 	public ArrayList<ArrayList<String>> ReservationListSelect(int id) throws Exception, SQLException {
-		String where = "r.female_id = " + id + " AND delete_flag = 0 " ;
+		String where = "r.female_id = " + id + " AND delete_flag = 0 AND visit_flag = 0 " ;
 		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id ", where);
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 		try {
@@ -254,7 +251,7 @@ public class DataAccess extends Dao{
 	}
 	//予約リストの行毎に表示する情報を抽出（夫主キー検索）
 		public ArrayList<ArrayList<String>> ReservationListSelect2(int id) throws Exception, SQLException {
-			String where = "m.id = " + id + " AND delete_flag = 0 " ;
+			String where = "m.id = " + id + " AND delete_flag = 0 AND visit_flag = 0 " ;
 			this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id INNER JOIN female f ON r.female_id = f.id INNER JOIN male m ON f.male_id = m.id", where);
 			ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 			try {
@@ -277,7 +274,7 @@ public class DataAccess extends Dao{
 
 	//予約リストの１データ毎に表示する情報を抽出（予約主キー検索）
 	public ArrayList<String> ReservationDataSelect(int id) throws Exception, SQLException {
-		String where = "r.id = " + id + " AND delete_flag = 0 " ;
+		String where = "r.id = " + id + " AND delete_flag = 0 AND visit_flag = 0 " ;
 		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id ", where);
 		ArrayList<String> result = new ArrayList<String>();
 		try {
@@ -299,7 +296,7 @@ public class DataAccess extends Dao{
 
 	//履歴リストの行毎に表示する情報を抽出（妻主キー検索）
 	public ArrayList<ArrayList<String>> HistoryListSelect(int id) throws Exception, SQLException {
-		String where = "r.female_id = " + id + " AND visit_flag = 0 AND delete_flag = 0  " ;
+		String where = "r.female_id = " + id + " AND visit_flag = 1 AND delete_flag = 0  " ;
 		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id ", where);
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 		try {
@@ -359,14 +356,14 @@ public class DataAccess extends Dao{
 		}
 	}
 
-	//夫の登録用コードを抽出(夫主キー検索)
-	public String MaleRegistrationCodeSelect(String code) throws Exception, SQLException {
-		String where = " sc.id = "+ code ;
+	//夫の登録用コードを抽出(妻主キー検索)
+	public String MaleRegistrationCodeSelect(String femaleId) throws Exception, SQLException {
+		String where = " sc.female_id = '"+ femaleId + "' ";
 		this.SelectWhere(" male m INNER JOIN signupcode sc ON m.id = sc.male_id INNER JOIN female f ON f.id = sc.female_id ", where);
 		String result = "";
 		try {
 			if(rs.next()) {
-				result = rs.getString("m.id");
+				result = rs.getString("sc.id");
 			}
 			return result;
 		}
@@ -375,14 +372,14 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * 夫ID、店IDから予約詳細を検索。但し、来店済、削除済は除外。
-	 * 
+	 *
 	 * @param maleId 夫ID。
 	 * @param shopId 店ID。
 	 * @return ArrayList<Reservation>型。
-	 * 
+	 *
 	 * @author Yuki Yoshida
 	 */
 	public ArrayList<ReservationFromMale> ReservationPerShopSelectFromMale(String maleId, String shopId) throws Exception {
@@ -393,14 +390,14 @@ public class DataAccess extends Dao{
 				+ "AND rsv.delete_flag = 0 "
 //				+ "AND rsv.use_date_time LIKE CONCAT(CURDATE(), '%') "	// 当日のみ
 				;
-		
+
 		ArrayList<ReservationFromMale> result = new ArrayList<ReservationFromMale>();
-		
+
 		try {
 			this.SelectWhere(from, whereClause);
 			while(rs.next()) {
 				ReservationFromMale rfm = new ReservationFromMale();
-				
+
 				rfm.setReservationId(rs.getString("rsv.id"));
 				rfm.setFemaleId(rs.getString("cpl.female_id"));
 				rfm.setFemaleName(rs.getString("cpl.female_name"));
@@ -408,16 +405,16 @@ public class DataAccess extends Dao{
 				rfm.setMaleName(rs.getString("cpl.male_name"));
 				rfm.setMenuNo(rs.getString("rsv.menu_no"));
 				rfm.setUseDateTime(rs.getTimestamp("rsv.use_date_time"));
-				
+
 				result.add(rfm);
-			} 
+			}
 //			else {
 //				ReservationFromMale rfm = new ReservationFromMale();
-//				
+//
 //				rfm.setFemaleName("");
 //				rfm.setMaleName("");
 //				rfm.setMenuNo("今日のご飯はないよ！");
-//				
+//
 //				result.add(rfm);
 //			}
 			return result;
@@ -428,11 +425,11 @@ public class DataAccess extends Dao{
 	}
 	/**
 	 * 夫ID、店IDから予約詳細を検索。但し、来店済、削除済は除外。
-	 * 
+	 *
 	 * @param maleId 夫ID。
 	 * @param shopId 店ID。
 	 * @return ArrayList<Reservation>型。
-	 * 
+	 *
 	 * @author Yuki Yoshida
 	 */
 	public ArrayList<ReservationFromMale> ReservationListPerShopSelect(String shopId) throws Exception {
@@ -442,19 +439,19 @@ public class DataAccess extends Dao{
 				+ "AND rsv.delete_flag = 0 "
 //				+ "AND rsv.use_date_time LIKE CONCAT(CURDATE(), '%') "	// 当日のみ
 				;
-		
+
 		ArrayList<ReservationFromMale> result = new ArrayList<ReservationFromMale>();
-		
+
 		try {
 			this.SelectWhere(from, whereClause);
 			while(rs.next()) {
 				ReservationFromMale rfm = new ReservationFromMale();
-				
+
 				rfm.setReservationId(rs.getString("rsv.id"));
 				rfm.setMaleId(rs.getString("cpl.male_id"));
 				rfm.setMaleName(rs.getString("cpl.male_name"));
 				rfm.setUseDateTime(rs.getTimestamp("rsv.use_date_time"));
-				
+
 				result.add(rfm);
 			}
 			return result;
@@ -463,7 +460,7 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
-	
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -540,13 +537,13 @@ public class DataAccess extends Dao{
             throw e;
 		}
 	}
-	
+
 	/**
 	 * 来店処理。
-	 * 
+	 *
 	 * @param reservationId 予約ID。
 	 * @return 予約情報。ReservationFromMale型。
-	 * 
+	 *
 	 * @author Yuki Yoshida
 	 */
 	public ReservationFromMale updateVisitFlag(String reservationId) throws Exception {
@@ -554,18 +551,18 @@ public class DataAccess extends Dao{
 			this._sql = "UPDATE reservation "
 					+ "SET visit_flag = 1 "
 					+ "WHERE id = ?";
-			
+
 			this.pst = this.cn.prepareStatement(this._sql);
-			
+
 			this.pst.setInt(1, Integer.parseInt(reservationId));
-			
+
 			this.pst.executeUpdate();
-			
+
 			String from = "reservation rsv LEFT JOIN v_couple cpl ON rsv.female_id = cpl.female_id LEFT JOIN tokens t ON cpl.female_id = t.id";
-			String whereClause = "rsv.id = '" + reservationId + "' " 
+			String whereClause = "rsv.id = '" + reservationId + "' "
 							   + "AND t.gender = 2 "
 			;
-			
+
 			ReservationFromMale rfm = new ReservationFromMale();
 			this.SelectWhere(from, whereClause);
 			while(rs.next()) {
@@ -577,17 +574,17 @@ public class DataAccess extends Dao{
 				rfm.setMenuNo(rs.getString("rsv.menu_no"));
 				rfm.setUseDateTime(rs.getTimestamp("rsv.use_date_time"));
 				rfm.setFemaleToken(rs.getString("t.token"));
-			} 
-			
+			}
+
 			return rfm;
 		} catch (Exception e) {
 			throw e;
 		}
 	}
-	
+
 	/**
 	 * トークンを更新するメソッド。
-	 * 
+	 *
 	 * @param userId ID。
 	 * @param gender 性別。
 	 * @param token 新しいトークン。
@@ -596,37 +593,37 @@ public class DataAccess extends Dao{
 	public int updateToken(String userId, int gender, String token) throws Exception {
 		try {
 			cn.setAutoCommit(false);
-			
+
 			this._sql = "DELETE FROM tokens "
 					+ "WHERE id = ? AND gender = ? ";
-			
+
 			this.pst = this.cn.prepareStatement(this._sql);
-			
+
 			this.pst.setString(1, userId);
 			this.pst.setInt(2, gender);
-			
+
 			int i = this.pst.executeUpdate();
-			
+
 			this._sql = "INSERT INTO tokens (id, gender, token) "
 					+ "VALUES (?, ?, ?) ";
-			
+
 			this.pst = this.cn.prepareStatement(this._sql);
-			
+
 			this.pst.setString(1, userId);
 			this.pst.setInt(2, gender);
 			this.pst.setString(3, token);
-			
+
 			i += this.pst.executeUpdate();
-			
+
 			cn.commit();
-			
+
 			cn.setAutoCommit(true);
-			
+
 			return i;
 		} catch (SQLException e) {
 			cn.rollback();
 			cn.setAutoCommit(true);
-			
+
 			return 0;
 		} catch (Exception e) {
 			cn.rollback();
@@ -634,7 +631,7 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
-	
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 }
