@@ -62,10 +62,10 @@ public class SendReservationListServlet extends HttpServlet {
 					useDateTime.setTime(list.get(i).getUseDateTime());
 					result += "\"use_date_time\":{"
 								+ "\"year\":\"" +useDateTime.get(Calendar.YEAR)+ "\","
-								+ "\"month\":\"" +(useDateTime.get(Calendar.MONTH)+1)+ "\","
-								+ "\"date\":\"" +useDateTime.get(Calendar.DATE)+ "\","
-								+ "\"hour\":\"" +useDateTime.get(Calendar.HOUR_OF_DAY)+ "\","
-								+ "\"minute\":\"" +useDateTime.get(Calendar.MINUTE)+ "\""
+								+ "\"month\":\"" +(String.format("%02d", (useDateTime.get(Calendar.MONTH)+1)))+ "\","
+								+ "\"date\":\"" +(String.format("%02d", useDateTime.get(Calendar.DATE)))+ "\","
+								+ "\"hour\":\"" +(String.format("%02d", useDateTime.get(Calendar.HOUR_OF_DAY)))+ "\","
+								+ "\"minute\":\"" +(String.format("%02d", useDateTime.get(Calendar.MINUTE)))+ "\""
 							+ "}";
 				result += "}";
 				if (i != (list.size() - 1)){
