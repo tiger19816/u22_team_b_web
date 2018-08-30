@@ -41,19 +41,19 @@ public class ReservationCardJsonServlet extends HttpServlet {
 		//行毎のデータ
 		String[] cardDatas = new String[4];
 
-				//DBに接続
-				DataAccess da = null;
-				try {
-					da = new DataAccess();
-					cardDatas = da.UseCardSelect(femaleId);
-					da.close();
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
+		//DBに接続
+		DataAccess da = null;
+		try {
+			da = new DataAccess();
+			cardDatas = da.UseCardSelect(femaleId);
+			da.close();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 
 				request.setAttribute("CARDDATAS", cardDatas);
 				RequestDispatcher rd = request.getRequestDispatcher("user_card_json.jsp");
