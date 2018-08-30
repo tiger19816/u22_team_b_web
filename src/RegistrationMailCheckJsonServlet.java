@@ -11,19 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import b.team.works.u22.hal.u22teamb.tools.DataAccess;
-import entities.Shops;
 
 /**
- * Servlet implementation class StoreNewRegistrationServlet
+ * Servlet implementation class RegistrationMailCheckJsonServlet
  */
-@WebServlet("/StoreNewRegistrationServlet")
-public class StoreNewRegistrationServlet extends HttpServlet {
+@WebServlet("/RegistrationMailCheckJsonServlet")
+public class RegistrationMailCheckJsonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StoreNewRegistrationServlet() {
+    public RegistrationMailCheckJsonServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,38 +35,18 @@ public class StoreNewRegistrationServlet extends HttpServlet {
 		//文字化け対策
 		request.setCharacterEncoding("utf-8");
 
-		//登録が完了したか否かを示す変数
-		boolean result = false;
+		//メアド取得
+		String mail = request.getParameter("mail");
 
-		//登録内容取得
-		Shops s = new Shops();
-		s.setId( "1234567890" );
-		System.out.println("ここまでいけたよ。");
-		s.setPassword( request.getParameter("postPassword") );
-		s.setName( request.getParameter("postShopName") );
-		s.setPhonetic( request.getParameter("postPhonetic") );
-		s.setOpenTime( request.getParameter("postOpenTime") );
-		s.setTel( request.getParameter("postTel") );
-		s.setAddress( request.getParameter("postAddress") );
-		s.setAverageBudget( request.getParameter("postAverageBudget") );
-		s.setPointLatitude( request.getParameter("postPointLatitude") );
-		s.setPointLongitude( request.getParameter("postLongitude") );
-		s.setLunchService( request.getParameter("postLunchService") );
-		s.setNonSmokingSeat( request.getParameter("postNonSmokingSeat") );
-		s.setCardUsage( request.getParameter("postCardUsage") );
-		s.setImage1( request.getParameter("image1") );
-		s.setImage2( request.getParameter("image2") );
-		s.setNo( request.getParameter("postNo") );
-		s.setFreeName( request.getParameter("postFreeName") );
+		//結果を格納する配列
+		Boolean result = false;
 
 		//DBに接続
 		DataAccess da = null;
 		try {
 			da = new DataAccess();
-
-			//店新規登録
-			result = da.addStore(s);
-
+			//夫情報抽出
+			result = da.UserMailCheck(mail);
 			da.close();
 		}
 		catch (SQLException e) {
@@ -80,7 +59,7 @@ public class StoreNewRegistrationServlet extends HttpServlet {
 		}
 
 		request.setAttribute("RESULT", result);
-		RequestDispatcher rd = request.getRequestDispatcher("store_new_registration.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("mail_check_json.jsp");
 		rd.forward(request, response);
 	}
 
