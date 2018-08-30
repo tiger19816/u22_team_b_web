@@ -2,7 +2,6 @@
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import b.team.works.u22.hal.u22teamb.tools.DataAccess;
 
 /**
- * Servlet implementation class UserLoginJsonServlet
+ * Servlet implementation class ReservationCardJsonServlet
  */
-@WebServlet("/UserLoginJsonServlet")
-public class UserLoginJsonServlet extends HttpServlet {
+@WebServlet("/ReservationCardJsonServlet")
+public class ReservationCardJsonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserLoginJsonServlet() {
+    public ReservationCardJsonServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,43 +32,32 @@ public class UserLoginJsonServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
 		//文字化け対策
 		request.setCharacterEncoding("utf-8");
 
 		//取得
-		String userMail = request.getParameter("mail");
-		String userPassword = request.getParameter("password");
-
-		if(userMail.equals("1")) {
-			userMail = "kazuki@ezweb.ne.jp";
-			userPassword = "12345";
-		} else {
-			userMail = "yumiko@ezweb.ne.jp";//aaa@bb.com
-			userPassword = "12345";
-		}
+		String femaleId = request.getParameter("femaleId");
 
 		//行毎のデータ
-		ArrayList<String> userDatas = new ArrayList<String>();
+		String[] cardDatas = new String[4];
 
-		//DBに接続
-		DataAccess da = null;
-		try {
-			da = new DataAccess();
-			userDatas = da.UserLoginSelect(userMail, userPassword);
-			userDatas.add(da.UserNameSelect(userDatas.get(0), userDatas.get(1))[0]);
-			da.close();
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+				//DBに接続
+				DataAccess da = null;
+				try {
+					da = new DataAccess();
+					cardDatas = da.UseCardSelect(femaleId);
+					da.close();
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 
-		request.setAttribute("USERDATAS", userDatas);
-		RequestDispatcher rd = request.getRequestDispatcher("user_login_json.jsp");
-		rd.forward(request, response);
+				request.setAttribute("CARDDATAS", cardDatas);
+				RequestDispatcher rd = request.getRequestDispatcher("user_card_json.jsp");
+				rd.forward(request, response);
 	}
 
 	/**

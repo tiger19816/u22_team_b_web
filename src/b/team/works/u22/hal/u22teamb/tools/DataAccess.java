@@ -322,11 +322,32 @@ public class DataAccess extends Dao{
 		this.SelectWhere(" userlist ", where);
 		ArrayList<String> result = new ArrayList<String>();
 		try {
-			while(rs.next()) {
+			if(rs.next()) {
 				result.add(rs.getString("id"));
 				result.add(rs.getString("sex"));
 				result.add(rs.getString("mail"));
 				result.add(rs.getString("password"));
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	//ユーザーの氏名と画像を取得。
+	public String[] UserNameSelect(String id , String sex) throws Exception, SQLException {
+		String[] result = new String[2];
+		String where = " id = '" + id + "'" ;
+		if("0".equals(sex)) {
+			this.SelectWhere(" female ", where);
+		}else {
+			this.SelectWhere(" male ", where);
+		}
+		try {
+			if(rs.next()) {
+				result[0] = rs.getString("name");
 			}
 			return result;
 		}
@@ -457,6 +478,26 @@ public class DataAccess extends Dao{
 			return result;
 		}
 		catch(Exception e) {
+			throw e;
+		}
+	}
+
+	//ユーザーのカード情報を取得。
+	public String[] UseCardSelect(String femaleId) throws Exception, SQLException {
+		String[] result = new String[4];
+		String where = " id = '" + femaleId + "'" ;
+		this.SelectWhere(" female ", where);
+		try {
+			if(rs.next()) {
+				result[0] = rs.getString("card_number");
+				result[1] = rs.getString("card_expiration_date");
+				result[2] = rs.getString("card_nominee");
+				result[3] = rs.getString("card_security_code");
+			}
+			return result;
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
 	}
