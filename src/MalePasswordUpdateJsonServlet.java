@@ -42,9 +42,6 @@ public class MalePasswordUpdateJsonServlet extends HttpServlet {
 		String userCode = request.getParameter("code");
 		String userPassword = request.getParameter("password");
 
-		userCode = "1234567890";
-		userPassword = "test1";
-
 		ArrayList<String> userDatas = new ArrayList<String>();
 
 		//DBに接続
