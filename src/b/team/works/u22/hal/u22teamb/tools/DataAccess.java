@@ -400,6 +400,23 @@ public class DataAccess extends Dao{
 		}
 	}
 
+	//夫の登録用コードを抽出(主キー検索)
+		public String MaleRegistrationCodeSelect2(String code) throws Exception, SQLException {
+			String where = " sc.id = '"+ code + "' ";
+			this.SelectWhere(" male m INNER JOIN signupcode sc ON m.id = sc.male_id INNER JOIN female f ON f.id = sc.female_id ", where);
+			String result = "";
+			try {
+				if(rs.next()) {
+					result = rs.getString("m.id");
+				}
+				return result;
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
+
 	/**
 	 * 夫ID、店IDから予約詳細を検索。但し、来店済、削除済は除外。
 	 *

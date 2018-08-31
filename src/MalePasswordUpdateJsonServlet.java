@@ -42,6 +42,9 @@ public class MalePasswordUpdateJsonServlet extends HttpServlet {
 		String userCode = request.getParameter("code");
 		String userPassword = request.getParameter("password");
 
+		userCode = "1234567890";
+		userPassword = "test1";
+
 		ArrayList<String> userDatas = new ArrayList<String>();
 
 		//DBに接続
@@ -50,7 +53,8 @@ public class MalePasswordUpdateJsonServlet extends HttpServlet {
 		try {
 			da = new DataAccess();
 			ad = new AccessDao();
-			userDatas.add(da.MaleRegistrationCodeSelect(userCode));
+			userDatas.add(da.MaleRegistrationCodeSelect2(userCode));
+			System.out.println(userDatas.get(0) + "がID!!");
 			da.close();
 			userDatas.add(String.valueOf(ad.malePasswordUpdate(userDatas.get(0), userPassword)));
 			ad.close();
