@@ -15,7 +15,7 @@ public class Dao {
 	private final String DB_HOST = "localhost:3306";
 	private final String DB_NAME = "team_b_db";
 	private final String DB_USER = "general";
-	private final String DB_PASS = "u22tesmb";
+	private final String DB_PASS = "u22teamb";
 
 	protected Connection cn;
 	protected PreparedStatement pst;
