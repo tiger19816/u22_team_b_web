@@ -450,6 +450,56 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
+
+	/**
+	 * 予約IDから予約詳細を検索。但し、来店済、削除済は除外。
+	 *
+	 * @param reservationId 予約ID。
+	 * @return ArrayList<Reservation>型。
+	 *
+	 * @author Yuki Yoshida
+	 */
+	public ArrayList<ReservationFromMale> ReservationPerShopSelectFromReservationId(String reservationId) throws Exception {
+		String from = "reservation rsv LEFT JOIN v_couple cpl ON rsv.female_id = cpl.female_id";
+		String whereClause = "rsv.id = '" + reservationId + "' "
+				+ "AND rsv.visit_flag = 0 "
+				+ "AND rsv.delete_flag = 0 "
+//				+ "AND rsv.use_date_time LIKE CONCAT(CURDATE(), '%') "	// 当日のみ
+				;
+
+		ArrayList<ReservationFromMale> result = new ArrayList<ReservationFromMale>();
+
+		try {
+			this.SelectWhere(from, whereClause);
+			while(rs.next()) {
+				ReservationFromMale rfm = new ReservationFromMale();
+
+				rfm.setReservationId(rs.getString("rsv.id"));
+				rfm.setFemaleId(rs.getString("cpl.female_id"));
+				rfm.setFemaleName(rs.getString("cpl.female_name"));
+				rfm.setMaleId(rs.getString("cpl.male_id"));
+				rfm.setMaleName(rs.getString("cpl.male_name"));
+				rfm.setMenuNo(rs.getString("rsv.menu_no"));
+				rfm.setUseDateTime(rs.getTimestamp("rsv.use_date_time"));
+
+				result.add(rfm);
+			}
+//			else {
+//				ReservationFromMale rfm = new ReservationFromMale();
+//
+//				rfm.setFemaleName("");
+//				rfm.setMaleName("");
+//				rfm.setMenuNo("今日のご飯はないよ！");
+//
+//				result.add(rfm);
+//			}
+			return result;
+		}
+		catch(Exception e) {
+			throw e;
+		}
+	}
+
 	/**
 	 * 夫ID、店IDから予約詳細を検索。但し、来店済、削除済は除外。
 	 *
