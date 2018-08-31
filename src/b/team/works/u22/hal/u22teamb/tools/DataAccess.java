@@ -1,7 +1,9 @@
 package b.team.works.u22.hal.u22teamb.tools;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import entities.Female;
 import entities.Male;
@@ -229,7 +231,9 @@ public class DataAccess extends Dao{
 
 	//予約リストの行毎に表示する情報を抽出（妻主キー検索）
 	public ArrayList<ArrayList<String>> ReservationListSelect(int id) throws Exception, SQLException {
-		String where = "r.female_id = " + id + " AND delete_flag = 0 AND visit_flag = 0 " ;
+		Date date = new Date();
+		SimpleDateFormat dfDate = new SimpleDateFormat("yyyy-MM-dd");
+		String where = "r.female_id = " + id + " AND delete_flag = 0 AND visit_flag = 0 AND use_date_time >= '"+ dfDate.format(date) +"'" ;
 		this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id ", where);
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 		try {
@@ -251,7 +255,9 @@ public class DataAccess extends Dao{
 	}
 	//予約リストの行毎に表示する情報を抽出（夫主キー検索）
 		public ArrayList<ArrayList<String>> ReservationListSelect2(int id) throws Exception, SQLException {
-			String where = "m.id = " + id + " AND delete_flag = 0 AND visit_flag = 0 " ;
+			Date date = new Date();
+			SimpleDateFormat dfDate = new SimpleDateFormat("yyyy-MM-dd");
+			String where = "m.id = " + id + " AND delete_flag = 0 AND visit_flag = 0 AND use_date_time >= '"+ dfDate.format(date) +"'" ;
 			this.SelectWhere(" reservation r INNER JOIN reservationshops rs ON r.shops_id = rs.id INNER JOIN female f ON r.female_id = f.id INNER JOIN male m ON f.male_id = m.id", where);
 			ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 			try {
@@ -444,6 +450,56 @@ public class DataAccess extends Dao{
 			throw e;
 		}
 	}
+
+	/**
+	 * 予約IDから予約詳細を検索。但し、来店済、削除済は除外。
+	 *
+	 * @param reservationId 予約ID。
+	 * @return ArrayList<Reservation>型。
+	 *
+	 * @author Yuki Yoshida
+	 */
+	public ArrayList<ReservationFromMale> ReservationPerShopSelectFromReservationId(String reservationId) throws Exception {
+		String from = "reservation rsv LEFT JOIN v_couple cpl ON rsv.female_id = cpl.female_id";
+		String whereClause = "rsv.id = '" + reservationId + "' "
+				+ "AND rsv.visit_flag = 0 "
+				+ "AND rsv.delete_flag = 0 "
+//				+ "AND rsv.use_date_time LIKE CONCAT(CURDATE(), '%') "	// 当日のみ
+				;
+
+		ArrayList<ReservationFromMale> result = new ArrayList<ReservationFromMale>();
+
+		try {
+			this.SelectWhere(from, whereClause);
+			while(rs.next()) {
+				ReservationFromMale rfm = new ReservationFromMale();
+
+				rfm.setReservationId(rs.getString("rsv.id"));
+				rfm.setFemaleId(rs.getString("cpl.female_id"));
+				rfm.setFemaleName(rs.getString("cpl.female_name"));
+				rfm.setMaleId(rs.getString("cpl.male_id"));
+				rfm.setMaleName(rs.getString("cpl.male_name"));
+				rfm.setMenuNo(rs.getString("rsv.menu_no"));
+				rfm.setUseDateTime(rs.getTimestamp("rsv.use_date_time"));
+
+				result.add(rfm);
+			}
+//			else {
+//				ReservationFromMale rfm = new ReservationFromMale();
+//
+//				rfm.setFemaleName("");
+//				rfm.setMaleName("");
+//				rfm.setMenuNo("今日のご飯はないよ！");
+//
+//				result.add(rfm);
+//			}
+			return result;
+		}
+		catch(Exception e) {
+			throw e;
+		}
+	}
+
 	/**
 	 * 夫ID、店IDから予約詳細を検索。但し、来店済、削除済は除外。
 	 *
@@ -502,6 +558,23 @@ public class DataAccess extends Dao{
 		}
 	}
 
+	//メールチェックの結果を取得。
+		public Boolean UserMailCheck(String mail) throws Exception, SQLException {
+			String where = " f.mail = '" + mail + "' OR m.mail = '" + mail + "'" ;
+			this.SelectWhere(" female f INNER JOIN male m ON f.male_id = m.id ", where);
+			try {
+				if(rs.next()) {
+					return false;
+				}else {
+					return true;
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
+
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -554,7 +627,6 @@ public class DataAccess extends Dao{
 			this.pst.setString(15, s.getImage2());
 
 			this.pst.executeUpdate();
-
 
 			//freewordに対して
 			this._sql = "INSERT INTO freeword "
