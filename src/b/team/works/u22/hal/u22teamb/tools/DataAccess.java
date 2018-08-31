@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import entities.Female;
 import entities.Male;
 import entities.ReservationFromMale;
@@ -604,9 +606,23 @@ public class DataAccess extends Dao{
 	 * @return 登録が完了したことを示すtrue
 	 * @throws Exception
 	 */
-	public Boolean addStore(Shops s) throws Exception {
+	public String addStore(Shops s) throws Exception {
+		String result = "";
 		try {
 			//shopsに対して
+	        String random1 = "";
+	        String random2 = "";
+			while(true) {
+				random1 = RandomStringUtils.randomAlphanumeric(20);
+		        random2 = RandomStringUtils.random(7, random1);
+		        String where = " s.id = '" + random2 + "'" ;
+				this.SelectWhere(" shops s ", where);
+				if(!rs.next()) {
+					s.setId(random2);
+					break;
+				}
+			}
+
 			this._sql = "INSERT INTO shops "
 					+ "(id, "
 					+ "password, "
@@ -627,14 +643,14 @@ public class DataAccess extends Dao{
 					+ "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			this.pst = this.cn.prepareStatement(this._sql);
 
-			this.pst.setInt(1, s.getId());
+			this.pst.setString(1, random2);
 			this.pst.setString(2, s.getPassword());
 			this.pst.setString(3, s.getName());
 			this.pst.setString(4, s.getPhonetic());
 			this.pst.setString(5, s.getOpenTime());
 			this.pst.setString(6, s.getTel());
 			this.pst.setString(7, s.getAddress());
-			this.pst.setInt(8, s.getAverageBudget());
+			this.pst.setString(8, s.getAverageBudget());
 			this.pst.setString(9, s.getPointLatitude());
 			this.pst.setString(10, s.getPointLongitude());
 			this.pst.setString(11, s.getLunchService());
@@ -643,24 +659,58 @@ public class DataAccess extends Dao{
 			this.pst.setString(14, s.getImage1());
 			this.pst.setString(15, s.getImage2());
 
+			System.out.println("INSERT INTO shops "
+					+ "(id, "
+					+ "password, "
+					+ "name, "
+					+ "phonetic, "
+					+ "open_time, "
+					+ "tel, "
+					+ "address, "
+					+ "average_budget, "
+					+ "point_latitude, "
+					+ "point_longitude, "
+					+ "lunch_service, "
+					+ "non_smoking_seat, "
+					+ "card_usage, "
+					+ "image1, "
+					+ "image2) "
+					+ "VALUES "
+					+ "('"+random2+"','"+s.getPassword()+"','"+s.getName()+"','"+s.getPhonetic()+"','"+s.getOpenTime()+"','"+s.getTel()+"'"
+							+ ",'"+s.getAddress()+"','"+s.getAverageBudget()+"','"+s.getPointLatitude()+"','"+s.getPointLongitude()+"','"+s.getLunchService()+"',"
+									+ "'"+s.getNonSmokingSeat()+"','"+s.getCardUsage()+"','"+s.getImage1()+"','"+s.getImage2()+"')");
+
 			this.pst.executeUpdate();
+			result = random2;
+
+			String where = " fw.shops_id = '" + random2 + "'" ;
+			this.SelectWhere(" freeword fw ", where);
+			s.setNo("0");
+			while(rs.next()) {
+				s.setNo(rs.getString("no"));
+			}
+			s.setNo(String.valueOf(Integer.parseInt(s.getNo())+1));
+
+			System.out.println(s.getNo());
+			System.out.println("INSERT INTO freeword (shops_id,no,name) VALUES ('"+random2+"','"+s.getNo()+"','"+s.getFreeName()+"')");
 
 			//freewordに対して
 			this._sql = "INSERT INTO freeword "
 					+ "(shops_id, "
 					+ "no, "
 					+ "name) "
-					+ "VALUES "
+					+ " VALUES "
 					+ "(?, ?, ?)";
 			this.pst = this.cn.prepareStatement(this._sql);
 
-			this.pst.setInt(1, s.getId());
-			this.pst.setInt(2, s.getNo());
+			this.pst.setString(1, s.getId());
+			this.pst.setString(2, s.getNo());
 			this.pst.setString(3, s.getFreeName());
-
 			this.pst.executeUpdate();
 
-			return true;
+			System.out.println("OK?");
+
+			return result;
 		}
 		catch(Exception e) {
 			e.printStackTrace();
