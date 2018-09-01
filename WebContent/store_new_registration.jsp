@@ -3,7 +3,9 @@
 <%@ page import="java.util.*" %>
 <%
 	String result = (String)request.getAttribute("RESULT");
+	String shopId = (String)request.getAttribute("SHOPID");
 %>
 {
-	"result":"<%=result %>"
+	"result":"<%=result %>",
+	"shop_id":"<%=shopId %>"
 }

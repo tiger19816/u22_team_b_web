@@ -49,13 +49,6 @@ public class Reservation {
 	 * 店IDのセッター
 	 * @param shops 店ID
 	 */
-	public void setShopsId(int shopsId) {
-		this.shops.setId(shopsId);
-	}
-	/**
-	 * 店IDのセッター
-	 * @param shops 店ID
-	 */
 	public void setShopsId(String shopsId) {
 		this.shops.setId(shopsId);
 	}
@@ -122,7 +115,7 @@ public class Reservation {
 	 * 店IDのゲッター
 	 * @return 店ID
 	 */
-	public int getShopsId() {
+	public String getShopsId() {
 		return this.shops.getId();
 	}
 //	/**

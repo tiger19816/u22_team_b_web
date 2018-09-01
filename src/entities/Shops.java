@@ -10,14 +10,14 @@ public class Shops {
 	/**
 	 * フィールド
 	 */
-	private int _id;
+	private String _id;
 	private String _password;
 	private String _name;
 	private String _phonetic;
 	private String _openTime;
 	private String _tel;
 	private String _address;
-	private int _averageBudget;
+	private String _averageBudget;
 	private String _pointLatitude;
 	private String _pointLongitude;
 	private String _lunchService;
@@ -26,21 +26,21 @@ public class Shops {
 	private String _image1;
 	private String _image2;
 
-	private int _no;
+	private String _no;
 	private String _freeName;
 
 	/**
 	 * コンストラクタ
 	 */
 	public Shops() {
-		this._id = 0;
+		this._id = "";
 		this._password = "";
 		this._name = "";
 		this._phonetic = "";
 		this._openTime = "";
 		this._tel = "";
 		this._address = "";
-		this._averageBudget = 0;
+		this._averageBudget = "";
 		this._pointLatitude = "";
 		this._pointLongitude = "";
 		this._lunchService = "";
@@ -49,7 +49,7 @@ public class Shops {
 		this._image1 = "";
 		this._image2 = "";
 
-		this._no = 0;
+		this._no = "";
 		this._freeName = "";
 	}
 
@@ -59,16 +59,10 @@ public class Shops {
 	 * 店IDのセッター
 	 * @param id 店ID
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this._id = id;
 	}
-	/**
-	 * 店IDのセッター
-	 * @param id 店ID
-	 */
-	public void setId(String id) {
-		this._id = Integer.valueOf(id);
-	}
+
 	/**
 	 * 店パスワードのセッター
 	 * @param password 店パスワード
@@ -97,12 +91,8 @@ public class Shops {
 		this._address = address;
 	}
 
-	public void setAverageBudget(int averageBudget) {
-		this._averageBudget = averageBudget;
-	}
-
 	public void setAverageBudget(String averageBudget) {
-		this._averageBudget = Integer.valueOf(averageBudget);
+		this._averageBudget = averageBudget;
 	}
 
 	public void setPointLatitude(String pointLatitude) {
@@ -141,12 +131,8 @@ public class Shops {
 		this._image2 = image2;
 	}
 
-	public void setNo(int no) {
-		this._no = no;
-	}
-
 	public void setNo(String no) {
-		this._no = Integer.valueOf(no);
+		this._no = no;
 	}
 
 	public void setFreeName(String freeName) {
@@ -159,7 +145,7 @@ public class Shops {
 	 * 店IDのゲッター
 	 * @return 店ID
 	 */
-	public int getId() {
+	public String getId() {
 		return this._id;
 	}
 	/**
@@ -190,7 +176,7 @@ public class Shops {
 		return this._address;
 	}
 
-	public int getAverageBudget() {
+	public String getAverageBudget() {
 		return this._averageBudget;
 	}
 
@@ -222,7 +208,7 @@ public class Shops {
 		return this._image2;
 	}
 
-	public int getNo() {
+	public String getNo() {
 		return this._no;
 	}
 
