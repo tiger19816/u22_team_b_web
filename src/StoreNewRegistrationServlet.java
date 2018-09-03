@@ -39,53 +39,23 @@ public class StoreNewRegistrationServlet extends HttpServlet {
 		//登録が完了したか否かを示す変数(店ID)
 		String result = "";
 
-		System.out.println("ここまできたよ?");
-
 		//登録内容取得
 		Shops s = new Shops();
 		s.setPassword( (String)request.getParameter("postPassword") );
 		s.setName( (String)request.getParameter("postShopName") );
 		s.setPhonetic( (String)request.getParameter("postPhonetic") );
-		System.out.println("ここまできたよ?2");
 		s.setOpenTime( (String)request.getParameter("postOpenTime") );
-		System.out.println("ここまできたよ?2.1");
 		s.setTel( (String)request.getParameter("postTel") );
-		System.out.println("ここまできたよ?2.2");
 		s.setAddress( (String)request.getParameter("postAddress") );
-		System.out.println("ここまできたよ?2.3");
 		s.setAverageBudget((String)request.getParameter("postAverageBudget"));
-		System.out.println("ここまできたよ?3");
 		s.setPointLatitude( (String)request.getParameter("postPointLatitude") );
 		s.setPointLongitude( (String)request.getParameter("postLongitude") );
 		s.setLunchService( (String)request.getParameter("postLunchService") );
 		s.setNonSmokingSeat( (String)request.getParameter("postNonSmokingSeat") );
 		s.setCardUsage( (String)request.getParameter("postCardUsage") );
-		System.out.println("ここまできたよ?4");
 		s.setImage1( (String)request.getParameter("image1") );
 		s.setImage2( (String)request.getParameter("image2") );
 		s.setFreeName( (String)request.getParameter("postFreeName") );
-		System.out.println("ここまできたよ?5");
-
-		System.out.println("INSERT INTO shops "
-				+ "(id, "
-				+ "password, "
-				+ "name, "
-				+ "phonetic, "
-				+ "open_time, "
-				+ "tel, "
-				+ "address, "
-				+ "average_budget, "
-				+ "point_latitude, "
-				+ "point_longitude, "
-				+ "lunch_service, "
-				+ "non_smoking_seat, "
-				+ "card_usage, "
-				+ "image1, "
-				+ "image2) "
-				+ "VALUES "
-				+ "('"+"','"+s.getPassword()+"','"+s.getName()+"','"+s.getPhonetic()+"','"+s.getOpenTime()+"','"+s.getTel()+"'"
-						+ ",'"+s.getAddress()+"','"+s.getAverageBudget()+"','"+s.getPointLatitude()+"','"+s.getPointLongitude()+"','"+s.getLunchService()+"',"
-								+ "'"+s.getNonSmokingSeat()+"','"+s.getCardUsage()+"','"+s.getImage1()+"','"+s.getImage2()+"')");
 
 		//DBに接続
 		DataAccess da = null;
