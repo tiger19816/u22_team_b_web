@@ -45,9 +45,6 @@ public class StoreLoginJsonServlet extends HttpServlet {
 		storeId = "7116760";
 		storePassword = "12345";
 
-//		storeId = "12345";
-//		storePassword = "12345";
-
 		//結果
 		Boolean dataExisted = true;
 
