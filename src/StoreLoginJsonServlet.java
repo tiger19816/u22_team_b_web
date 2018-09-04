@@ -41,10 +41,6 @@ public class StoreLoginJsonServlet extends HttpServlet {
 		String storeId = request.getParameter("id");
 		String storePassword = request.getParameter("password");
 
-		//サンプルデータ
-		storeId = "7116760";
-		storePassword = "12345";
-
 		//結果
 		Boolean dataExisted = true;
 
