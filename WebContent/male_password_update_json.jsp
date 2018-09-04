@@ -6,5 +6,6 @@
 %>
 {
 	"maleId":"<%=userDatas.get(0) %>",
-	"done":"<%=userDatas.get(1) %>"
+	"maleName":"<%=userDatas.get(1) %>",
+	"done":"<%=userDatas.get(2) %>"
 }
