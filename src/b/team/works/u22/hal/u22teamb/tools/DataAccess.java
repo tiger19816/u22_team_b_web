@@ -403,14 +403,14 @@ public class DataAccess extends Dao{
 	}
 
 	//夫の登録用コードを抽出(主キー検索)
-		public String MaleRegistrationCodeSelect2(String code) throws Exception, SQLException {
+		public ArrayList<String> MaleRegistrationCodeSelect2(String code) throws Exception, SQLException {
 			String where = " sc.id = '"+ code + "' ";
 			this.SelectWhere(" male m INNER JOIN signupcode sc ON m.id = sc.male_id INNER JOIN female f ON f.id = sc.female_id ", where);
-			String result = "";
+			ArrayList<String> result = new ArrayList<String>();
 			try {
 				if(rs.next()) {
-					result = rs.getString("m.id");
-					result = rs.getString("m.name");
+					result.add(rs.getString("m.id"));
+					result.add(rs.getString("m.name"));
 				}
 				return result;
 			}

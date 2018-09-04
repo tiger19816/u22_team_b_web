@@ -50,7 +50,7 @@ public class MalePasswordUpdateJsonServlet extends HttpServlet {
 		try {
 			da = new DataAccess();
 			ad = new AccessDao();
-			userDatas.add(da.MaleRegistrationCodeSelect2(userCode));
+			userDatas = da.MaleRegistrationCodeSelect2(userCode);
 			da.close();
 			userDatas.add(String.valueOf(ad.malePasswordUpdate(userDatas.get(0), userPassword)));
 			ad.close();
