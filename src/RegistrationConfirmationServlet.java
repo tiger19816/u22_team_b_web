@@ -67,8 +67,8 @@ public class RegistrationConfirmationServlet extends HttpServlet {
 				femaleDatas[7] = request.getParameter("femaleSecurityCode");
 				femaleDatas[8] = request.getParameter("femaleCardNomineeName");
 				femaleDatas[9] = request.getParameter("femaleAddress");
-				femaleDatas[10] = request.getParameter("femaleLatitude");
-				femaleDatas[11] = request.getParameter("femaleLongitude");
+				femaleDatas[10] = request.getParameter("femaleLongitude");
+				femaleDatas[11] = request.getParameter("femaleLatitude");
 
 				for(int i=0; i<femaleDatas.length; i++) {
 					System.out.println(String.valueOf(i)+"番目:"+femaleDatas[i]);
