@@ -211,11 +211,17 @@ public class AccessDao extends Dao{
 	 */
 	public boolean malePasswordUpdate(String id , String password) {
 		String sql = "UPDATE male SET password = ? WHERE id = ? ;";
+		String sql2 = "DELETE FROM signupcode WHERE male_id = ?;";
 		try {
 			this.pst = cn.prepareStatement(sql);
 			pst.setString(1, password);
 			pst.setString(2, id);
 			pst.executeUpdate();
+
+			this.pst = cn.prepareStatement(sql2);
+			pst.setString(1, id);
+			pst.executeUpdate();
+
 		} catch (SQLException e) {
 			// TODO: handle exception
 			return false;
