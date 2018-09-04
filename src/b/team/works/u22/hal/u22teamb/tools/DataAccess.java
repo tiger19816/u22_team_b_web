@@ -410,6 +410,7 @@ public class DataAccess extends Dao{
 			try {
 				if(rs.next()) {
 					result = rs.getString("m.id");
+					result = rs.getString("m.name");
 				}
 				return result;
 			}
